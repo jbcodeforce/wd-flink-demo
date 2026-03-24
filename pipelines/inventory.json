@@ -1,0 +1,50 @@
+{
+    "raw_activities": {
+        "table_name": "raw_activities",
+        "product_name": "raw",
+        "type": "unknown-type",
+        "dml_ref": "pipelines/raw/raw_activities/sql-scripts/dml.raw_activities.sql",
+        "ddl_ref": "pipelines/raw/raw_activities/sql-scripts/ddl.raw_activities.sql",
+        "table_folder_name": "pipelines/raw/raw_activities"
+    },
+    "raw_leads": {
+        "table_name": "raw_leads",
+        "product_name": "raw",
+        "type": "unknown-type",
+        "dml_ref": "pipelines/raw/raw_leads/sql-scripts/dml.raw_leads_dedup.sql",
+        "ddl_ref": "pipelines/raw/raw_leads/sql-scripts/ddl.raw_leads.sql",
+        "table_folder_name": "pipelines/raw/raw_leads"
+    },
+    "raw_mkt_pgm": {
+        "table_name": "raw_mkt_pgm",
+        "product_name": "raw",
+        "type": "unknown-type",
+        "dml_ref": "pipelines/raw/raw_mkt_pgm/sql-scripts/dml.raw_mkt_pgm.sql",
+        "ddl_ref": "pipelines/raw/raw_mkt_pgm/sql-scripts/ddl.raw_mkt_pgm.sql",
+        "table_folder_name": "pipelines/raw/raw_mkt_pgm"
+    },
+    "src_activities": {
+        "table_name": "src_activities",
+        "product_name": "ldg",
+        "type": "unknown-type",
+        "dml_ref": "pipelines/ldg/src_activities/sql-scripts/dml.src_activities.sql",
+        "ddl_ref": "pipelines/ldg/src_activities/sql-scripts/ddl.src_activities.sql",
+        "table_folder_name": "pipelines/ldg/src_activities"
+    },
+    "src_leads": {
+        "table_name": "src_leads",
+        "product_name": "ldg",
+        "type": "unknown-type",
+        "dml_ref": "pipelines/ldg/src_leads/sql-scripts/dml.src_leads.sql",
+        "ddl_ref": "pipelines/ldg/src_leads/sql-scripts/ddl.src_leads.sql",
+        "table_folder_name": "pipelines/ldg/src_leads"
+    },
+    "src_mkt_pgm": {
+        "table_name": "src_mkt_pgm",
+        "product_name": "ldg",
+        "type": "unknown-type",
+        "dml_ref": "pipelines/ldg/src_mkt_pgm/sql-scripts/dml.src_mkt_pgm.sql",
+        "ddl_ref": "pipelines/ldg/src_mkt_pgm/sql-scripts/ddl.src_mkt_pgm.sql",
+        "table_folder_name": "pipelines/ldg/src_mkt_pgm"
+    }
+}
