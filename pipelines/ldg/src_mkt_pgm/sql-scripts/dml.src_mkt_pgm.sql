@@ -18,7 +18,7 @@ SELECT
   workspace
 FROM
   (SELECT
-    program_id,
+    CAST(program_id AS INT) as program_id,
     name,
     channel,
     status,

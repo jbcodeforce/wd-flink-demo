@@ -19,7 +19,7 @@
         "table_name": "raw_leads",
         "product_name": "raw",
         "type": "unknown-type",
-        "dml_ref": "pipelines/raw/raw_leads/sql-scripts/dml.raw_leads_dedup.sql",
+        "dml_ref": "pipelines/raw/raw_leads/sql-scripts/dml.raw_leads.sql",
         "ddl_ref": "pipelines/raw/raw_leads/sql-scripts/ddl.raw_leads.sql",
         "table_folder_name": "pipelines/raw/raw_leads"
     },
