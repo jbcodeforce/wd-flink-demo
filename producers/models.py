@@ -5,7 +5,7 @@ from datetime import datetime
 @dataclass
 class Lead:
     """
-    a lead is the primary identity. This class handles the core profile and custom attributes.
+    a lead is the primary identity. This class handles the core user profile and custom attributes.
     """
     m_id: int
     email: str

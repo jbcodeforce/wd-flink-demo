@@ -1,17 +1,21 @@
--- Pipeline: dedupe from src_table into raw_leads (not seed data).
--- Dedup: one row per m_id, keep the latest event by created_at.
--- Quality (5 predicates): plausible email, score in 0..100, non-empty status, non-null created_at.
+-- Dedupe typed src_table rows and write Debezium-style envelopes into raw_leads.
+-- Synthetic op = c; after = JSON of lead; before null; source_ts_ms from event time.
 
 INSERT INTO raw_leads
 SELECT
-  m_id,
-  email,
-  first_name,
-  last_name,
-  lead_score,
-  status,
-  attributes,
-  created_at
+  CAST(m_id AS STRING),
+  CAST(NULL AS STRING),
+  JSON_OBJECT(
+    'm_id' VALUE m_id,
+    'email' VALUE email,
+    'first_name' VALUE first_name,
+    'last_name' VALUE last_name,
+    'lead_score' VALUE lead_score,
+    'status' VALUE status,
+    'created_at' VALUE DATE_FORMAT(created_at, 'yyyy-MM-dd HH:mm:ss.SSS')
+  ),
+  'c',
+  CAST(UNIX_TIMESTAMP(created_at) * 1000 AS BIGINT)
 FROM (
   SELECT
     m_id,

@@ -1,4 +1,12 @@
 {
+    "dim_activities": {
+        "table_name": "dim_activities",
+        "product_name": "ldg",
+        "type": "unknown-type",
+        "dml_ref": "pipelines/ldg/dim_activities/sql-scripts/dml.dim_activities.sql",
+        "ddl_ref": "pipelines/ldg/dim_activities/sql-scripts/ddl.dim_activities.sql",
+        "table_folder_name": "pipelines/ldg/dim_activities"
+    },
     "raw_activities": {
         "table_name": "raw_activities",
         "product_name": "raw",

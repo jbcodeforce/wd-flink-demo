@@ -1,17 +1,11 @@
--- Mirrors producers.models.Lead: core profile, custom attributes, timestamps.
--- m_id: int -> INT; email/first_name/last_name/status -> VARCHAR; lead_score -> INT;
--- attributes: Dict[str, Any] -> MAP<STRING, STRING> (values as strings);
--- created_at: datetime -> TIMESTAMP(3)
-
+-- Debezium CDC raw layer: envelope with before/after as STRING (schema-less JSON).
+-- Downstream (e.g. src_leads) parses `after` / `before` with JSON_VALUE.
 CREATE TABLE IF NOT EXISTS raw_leads (
-  `m_id` INT NOT NULL,
-  `email` VARCHAR(2147483647) NOT NULL,
-  `first_name` VARCHAR(2147483647),
-  `last_name` VARCHAR(2147483647),
-  `lead_score` INT NOT NULL,
-  `status` VARCHAR(2147483647) NOT NULL,
-  `attributes` MAP<VARCHAR(2147483647), VARCHAR(2147483647)> NOT NULL,
-  `created_at` TIMESTAMP(3) NOT NULL,
+  `m_id`         STRING NOT NULL COMMENT 'Source primary key (from Debezium key)',
+  `before`       STRING COMMENT 'Row state before change (JSON); null for INSERT',
+  `after`        STRING COMMENT 'Row state after change (JSON); null for DELETE',
+  `op`           STRING COMMENT 'Debezium op: c=create, u=update, d=delete, r=read/snapshot',
+  `source_ts_ms` BIGINT COMMENT 'Source event timestamp (ms)',
   PRIMARY KEY (`m_id`) NOT ENFORCED
 ) DISTRIBUTED BY HASH(`m_id`) INTO 3 BUCKETS
 WITH (
