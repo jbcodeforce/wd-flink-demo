@@ -7,6 +7,14 @@
         "ddl_ref": "pipelines/ldg/dim_activities/sql-scripts/ddl.dim_activities.sql",
         "table_folder_name": "pipelines/ldg/dim_activities"
     },
+    "fct_nb_act_per_pgm": {
+        "table_name": "fct_nb_act_per_pgm",
+        "product_name": "ldg",
+        "type": "unknown-type",
+        "dml_ref": "pipelines/ldg/fct_nb_act_per_pgm/sql-scripts/dml.fct_nb_act_per_pgm.sql",
+        "ddl_ref": "pipelines/ldg/fct_nb_act_per_pgm/sql-scripts/ddl.fct_nb_act_per_pgm.sql",
+        "table_folder_name": "pipelines/ldg/fct_nb_act_per_pgm"
+    },
     "raw_activities": {
         "table_name": "raw_activities",
         "product_name": "raw",
