@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>fct_nb_act_per_pgm dashboard</title>
+  <style>
+    :root {
+      --bg: #0f1419;
+      --panel: #1a2332;
+      --text: #e7ecf3;
+      --muted: #8b9cb3;
+      --accent: #3d9df0;
+      --ok: #3dd68c;
+      --warn: #f0a030;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    header {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid #2a3545;
+      background: var(--panel);
+    }
+    header h1 { margin: 0; font-size: 1.15rem; font-weight: 600; }
+    header p { margin: 0.35rem 0 0; color: var(--muted); font-size: 0.85rem; }
+    main { padding: 1.5rem; max-width: 960px; margin: 0 auto; }
+    .status {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+    }
+    .pill {
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      background: #243044;
+      color: var(--muted);
+    }
+    .pill.on { background: #1e3d2f; color: var(--ok); }
+    .pill.off { background: #3d2a1e; color: var(--warn); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+    .card {
+      background: var(--panel);
+      border-radius: 12px;
+      padding: 1rem 1.1rem;
+      border: 1px solid #2a3545;
+    }
+    .card h2 {
+      margin: 0 0 0.75rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .gauge-wrap { position: relative; height: 100px; margin: 0 auto; width: 160px; }
+    svg.gauge { width: 160px; height: 100px; display: block; }
+    .gauge-bg { fill: none; stroke: #2a3545; stroke-width: 12; stroke-linecap: round; }
+    .gauge-fill { fill: none; stroke: var(--accent); stroke-width: 12; stroke-linecap: round; }
+    .gauge-value {
+      position: absolute;
+      left: 0; right: 0;
+      bottom: 0.25rem;
+      text-align: center;
+      font-size: 1.35rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+    .sub {
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: center;
+    }
+    .err {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      background: #3d1e24;
+      border-radius: 8px;
+      color: #f5a8b8;
+      font-size: 0.85rem;
+      display: none;
+    }
+    .err.show { display: block; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Fact: activities per program</h1>
+    <p>Topic: <code id="topic-label">{{ topic }}</code> &middot; metrics refresh every 2s</p>
+  </header>
+  <main>
+    <div class="status" id="status"></div>
+    <div class="grid">
+      <div class="card">
+        <h2>Snapshot rows</h2>
+        <div class="gauge-wrap">
+          <svg class="gauge" viewBox="0 0 160 100" aria-hidden="true">
+            <path class="gauge-bg" d="M 20 88 A 60 60 0 0 1 140 88" />
+            <path id="arc-rows" class="gauge-fill" d="M 20 88 A 60 60 0 0 1 140 88" />
+          </svg>
+          <div class="gauge-value" id="val-rows">0</div>
+        </div>
+        <div class="sub">Upserted keys in memory</div>
+      </div>
+      <div class="card">
+        <h2>Distinct programs</h2>
+        <div class="gauge-wrap">
+          <svg class="gauge" viewBox="0 0 160 100" aria-hidden="true">
+            <path class="gauge-bg" d="M 20 88 A 60 60 0 0 1 140 88" />
+            <path id="arc-prog" class="gauge-fill" d="M 20 88 A 60 60 0 0 1 140 88" />
+          </svg>
+          <div class="gauge-value" id="val-prog">0</div>
+        </div>
+        <div class="sub">Unique <code>program_name</code> values</div>
+      </div>
+      <div class="card">
+        <h2>Peak count (window)</h2>
+        <div class="gauge-wrap">
+          <svg class="gauge" viewBox="0 0 160 100" aria-hidden="true">
+            <path class="gauge-bg" d="M 20 88 A 60 60 0 0 1 140 88" />
+            <path id="arc-max" class="gauge-fill" d="M 20 88 A 60 60 0 0 1 140 88" />
+          </svg>
+          <div class="gauge-value" id="val-max">0</div>
+        </div>
+        <div class="sub" id="top-prog">No data yet</div>
+      </div>
+    </div>
+    <div class="err" id="err-box"></div>
+  </main>
+  <script>
+    const ARC_LEN = Math.PI * 60;
+
+    function setArc(el, pct) {
+      const p = Math.max(0, Math.min(100, pct));
+      const vis = (p / 100) * ARC_LEN;
+      el.style.strokeDasharray = `${vis} ${ARC_LEN}`;
+      el.style.strokeDashoffset = 0;
+    }
+
+    function pctOf(value, cap) {
+      if (!cap || cap <= 0) return 0;
+      return Math.min(100, (value / cap) * 100);
+    }
+
+    async function tick() {
+      try {
+        const r = await fetch("/api/metrics");
+        const m = await r.json();
+
+        const status = document.getElementById("status");
+        const cfg = m.consumer_configured;
+        const run = m.consumer_running;
+        status.innerHTML = `
+          <span class="pill ${cfg ? "on" : "off"}">Config ${cfg ? "OK" : "incomplete"}</span>
+          <span class="pill ${run ? "on" : "off"}">Consumer ${run ? "running" : "stopped"}</span>
+          <span class="pill">Messages ${m.messages_total}</span>
+          <span class="pill">Errors ${m.errors_total}</span>
+          ${m.last_message_ts_iso ? `<span class="pill">Last msg ${m.last_message_ts_iso}</span>` : ""}
+        `;
+
+        document.getElementById("topic-label").textContent = m.kafka_topic || document.getElementById("topic-label").textContent;
+
+        const rows = m.row_count || 0;
+        const prog = m.distinct_programs || 0;
+        const mx = m.max_nb_activities || 0;
+
+        document.getElementById("val-rows").textContent = rows;
+        document.getElementById("val-prog").textContent = prog;
+        document.getElementById("val-max").textContent = mx;
+
+        const capRows = Math.max(rows, 20, 1);
+        const capProg = Math.max(prog, 10, 1);
+        const capMax = Math.max(mx, 50, 1);
+
+        setArc(document.getElementById("arc-rows"), pctOf(rows, capRows));
+        setArc(document.getElementById("arc-prog"), pctOf(prog, capProg));
+        setArc(document.getElementById("arc-max"), pctOf(mx, capMax));
+
+        const tp = m.top_program_name;
+        document.getElementById("top-prog").textContent =
+          tp ? `Top program: ${tp}` : "No data yet";
+
+        const err = document.getElementById("err-box");
+        if (m.last_error) {
+          err.textContent = m.last_error;
+          err.classList.add("show");
+        } else {
+          err.classList.remove("show");
+        }
+      } catch (e) {
+        const err = document.getElementById("err-box");
+        err.textContent = "Failed to load /api/metrics: " + e;
+        err.classList.add("show");
+      }
+    }
+
+    tick();
+    setInterval(tick, 2000);
+  </script>
+</body>
+</html>

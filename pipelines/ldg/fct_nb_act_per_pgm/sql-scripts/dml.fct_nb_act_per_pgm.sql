@@ -7,13 +7,9 @@ SELECT
   COUNT(DISTINCT activity_id) AS nb_activities
 FROM TABLE(
   TUMBLE(
-    TABLE (
-      SELECT *
-      FROM dim_activities
-      WHERE activity_ts IS NOT NULL
-    ),
+    TABLE dim_activities,
     DESCRIPTOR(activity_ts),
-    INTERVAL '1' DAY
+    INTERVAL '4' HOURS
   )
 )
 GROUP BY

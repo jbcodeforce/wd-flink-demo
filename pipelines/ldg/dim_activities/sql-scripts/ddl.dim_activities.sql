@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS dim_activities (
   `program_name` VARCHAR(2147483647),
   `program_channel` VARCHAR(2147483647),
   `program_status` VARCHAR(2147483647),
-  WATERMARK FOR activity_ts AS activity_ts - INTERVAL '5' SECOND,
+  WATERMARK FOR `activity_ts` AS `activity_ts` - INTERVAL '5' SECOND,
   PRIMARY KEY(`activity_id`) NOT ENFORCED
 ) DISTRIBUTED BY HASH(`activity_id`) INTO 1 BUCKETS
 WITH (

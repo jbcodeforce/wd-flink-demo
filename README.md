@@ -45,8 +45,26 @@ The demonstration addresses the following standard patterns of data processing:
 | raw_activities | completed | inserts |
 | src_activities | completed | run |
 | dim_activities | completed | run |
+| fct_nb_act_per_pgm | | |
+
+![](./docs/flink_statements.png)
+
 
 ## Demonstration Script
+
+### Understanding main concepts
+
+* [See main Flink Concepts sunmmary](https://jbcodeforce.github.io/flink-studies/concepts/)
+* Confluent Cloud Flink [concepts and lab](https://github.com/griga23/flink-workshop/blob/main/lab1.md)
+
+Review following items in the Confluent Cloud Concepts:
+
+1. Environment
+  ![](./docs/cc-env.png)
+
+1. Flink workspace, catalog and database
+1. Flink Statements, filtering based on status
+1. Review execution plan of a DAG using [EXPLAIN](https://docs.confluent.io/cloud/current/flink/reference/statements/explain.html)
 
 ### Review the raw_mkt_pgm as schemaless
 
@@ -58,9 +76,10 @@ CREATE TABLE IF NOT EXISTS `raw_mkt_pgm` (
 ) 
 WITH (
   'changelog.mode' = 'append',
+  ...
 ```
 
- The ppayload is a json object which can be transformed to new columns. See [dml.src_mkt_pgm.sql](https://github.com/jbcodeforce/wd-flink-demo/blob/main/pipelines/ldg/src_mkt_pgm/sql-scripts/dml.src_mkt_pgm.sql)
+ The payload is a json object which can be transformed to new columns. See [dml.src_mkt_pgm.sql](https://github.com/jbcodeforce/wd-flink-demo/blob/main/pipelines/ldg/src_mkt_pgm/sql-scripts/dml.src_mkt_pgm.sql)
 
  ```sql
 select
@@ -71,12 +90,15 @@ select
     json_value(payload, '$.workspace') as workspace,
     `$rowtime` as event_ts
   from raw_mkt_pgm where payload IS NOT NULL
+  ...
  ```
+
+ [See JSON built-in functions](https://nightlies.apache.org/flink/flink-docs-stable/docs/dev/table/functions/systemfunctions/#json-functions) and [from Confluent documentation.](https://docs.confluent.io/cloud/current/flink/reference/functions/json-functions.html)
 
 
 ### Review CDC Debezium envelops
 
-The raw_leads is defined as a table/schema created by Debezium. For this demonstration there is no source table in SQL database, but a mock of what the schema looks like. For real CDC Debezium outcome see the demonstration [healthcare-shift-left-demo Kafka Connect](https://github.com/jbcodeforce/healthcare-shift-left-demo/tree/main/connect).
+The raw_leads is defined as a table/schema created by Debezium. For this demonstration there is no source table in SQL database, but a mock of what the schema looks like. For real CDC Debezium outcome see the demonstration [healthcare-shift-left-demo Kafka Connect](https://github.com/jbcodeforce/healthcare-shift-left-demo/tree/main/connect) or []().
 
 
 ```sql
@@ -95,6 +117,7 @@ From this table definition, the source processing handles data extraction, dedup
 ### Build dimension
 
 * Left joins and limit on state size
+
 * Define primary key for the sink table
 
 ### Fact: number of activities per program

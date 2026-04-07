@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS src_activities (
   `primary_attribute_value` VARCHAR(2147483647) NOT NULL,
   `timestamp` TIMESTAMP(3) NOT NULL,
   `metadata` MAP<VARCHAR(2147483647), VARCHAR(2147483647)> NOT NULL,
+  WATERMARK FOR `timestamp` AS `timestamp` - INTERVAL '5' SECOND,
   PRIMARY KEY (`activity_id`) NOT ENFORCED
 ) DISTRIBUTED BY HASH(`activity_id`) INTO 3 BUCKETS
 WITH (

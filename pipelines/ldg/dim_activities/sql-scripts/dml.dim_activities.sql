@@ -16,11 +16,11 @@ with activities_leads as (
     LEFT JOIN src_leads ON sa.lead_id = src_leads.m_id
 )
 SELECT
-    al.activity_id,
-    al.lead_id,
-    al.activity_type,
-    al.primary_attribute_value,
-    al.activity_ts,
+  al.activity_id,
+  al.lead_id,
+  al.activity_type,
+  al.primary_attribute_value,
+  al.activity_ts,
   al.lead_email as `lead_email`,
   al.lead_first_name,
   al.lead_last_name as `lead_last_name`,
