@@ -5,7 +5,8 @@
         "type": "dimension",
         "dml_ref": "pipelines/dimensions/ldg/dim_activities/sql-scripts/dml.dim_activities.sql",
         "ddl_ref": "pipelines/dimensions/ldg/dim_activities/sql-scripts/ddl.dim_activities.sql",
-        "table_folder_name": "pipelines/dimensions/ldg/dim_activities"
+        "table_folder_name": "pipelines/dimensions/ldg/dim_activities",
+        "kafka_topic": null
     },
     "fct_nb_act_per_pgm": {
         "table_name": "fct_nb_act_per_pgm",
@@ -13,7 +14,8 @@
         "type": "fact",
         "dml_ref": "pipelines/facts/ldg/fct_nb_act_per_pgm/sql-scripts/dml.fct_nb_act_per_pgm.sql",
         "ddl_ref": "pipelines/facts/ldg/fct_nb_act_per_pgm/sql-scripts/ddl.fct_nb_act_per_pgm.sql",
-        "table_folder_name": "pipelines/facts/ldg/fct_nb_act_per_pgm"
+        "table_folder_name": "pipelines/facts/ldg/fct_nb_act_per_pgm",
+        "kafka_topic": null
     },
     "raw_activities": {
         "table_name": "raw_activities",
@@ -21,7 +23,8 @@
         "type": "seed",
         "dml_ref": "pipelines/seeds/raw_activities/sql-scripts/dml.raw_activities.sql",
         "ddl_ref": "pipelines/seeds/raw_activities/sql-scripts/ddl.raw_activities.sql",
-        "table_folder_name": "pipelines/seeds/raw_activities"
+        "table_folder_name": "pipelines/seeds/raw_activities",
+        "kafka_topic": null
     },
     "raw_leads": {
         "table_name": "raw_leads",
@@ -29,7 +32,8 @@
         "type": "seed",
         "dml_ref": "pipelines/seeds/raw_leads/sql-scripts/dml.raw_leads.sql",
         "ddl_ref": "pipelines/seeds/raw_leads/sql-scripts/ddl.raw_leads.sql",
-        "table_folder_name": "pipelines/seeds/raw_leads"
+        "table_folder_name": "pipelines/seeds/raw_leads",
+        "kafka_topic": null
     },
     "raw_mkt_pgm": {
         "table_name": "raw_mkt_pgm",
@@ -37,7 +41,8 @@
         "type": "seed",
         "dml_ref": "pipelines/seeds/raw_mkt_pgm/sql-scripts/dml.raw_mkt_pgm.sql",
         "ddl_ref": "pipelines/seeds/raw_mkt_pgm/sql-scripts/ddl.raw_mkt_pgm.sql",
-        "table_folder_name": "pipelines/seeds/raw_mkt_pgm"
+        "table_folder_name": "pipelines/seeds/raw_mkt_pgm",
+        "kafka_topic": null
     },
     "src_activities": {
         "table_name": "src_activities",
@@ -45,7 +50,8 @@
         "type": "source",
         "dml_ref": "pipelines/sources/ldg/src_activities/sql-scripts/dml.src_activities.sql",
         "ddl_ref": "pipelines/sources/ldg/src_activities/sql-scripts/ddl.src_activities.sql",
-        "table_folder_name": "pipelines/sources/ldg/src_activities"
+        "table_folder_name": "pipelines/sources/ldg/src_activities",
+        "kafka_topic": null
     },
     "src_leads": {
         "table_name": "src_leads",
@@ -53,7 +59,8 @@
         "type": "source",
         "dml_ref": "pipelines/sources/ldg/src_leads/sql-scripts/dml.src_leads.sql",
         "ddl_ref": "pipelines/sources/ldg/src_leads/sql-scripts/ddl.src_leads.sql",
-        "table_folder_name": "pipelines/sources/ldg/src_leads"
+        "table_folder_name": "pipelines/sources/ldg/src_leads",
+        "kafka_topic": null
     },
     "src_mkt_pgm": {
         "table_name": "src_mkt_pgm",
@@ -61,6 +68,7 @@
         "type": "source",
         "dml_ref": "pipelines/sources/ldg/src_mkt_pgm/sql-scripts/dml.src_mkt_pgm.sql",
         "ddl_ref": "pipelines/sources/ldg/src_mkt_pgm/sql-scripts/ddl.src_mkt_pgm.sql",
-        "table_folder_name": "pipelines/sources/ldg/src_mkt_pgm"
+        "table_folder_name": "pipelines/sources/ldg/src_mkt_pgm",
+        "kafka_topic": null
     }
 }

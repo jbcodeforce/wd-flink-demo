@@ -5,6 +5,7 @@
    "dml_ref": "pipelines/seeds/raw_leads/sql-scripts/dml.raw_leads.sql",
    "ddl_ref": "pipelines/seeds/raw_leads/sql-scripts/ddl.raw_leads.sql",
    "path": "pipelines/seeds/raw_leads",
+   "kafka_topic": null,
    "complexity": {
       "number_of_regular_joins": 0,
       "number_of_left_joins": 0,
@@ -23,6 +24,7 @@
          "dml_ref": "pipelines/sources/ldg/src_leads/sql-scripts/dml.src_leads.sql",
          "ddl_ref": "pipelines/sources/ldg/src_leads/sql-scripts/ddl.src_leads.sql",
          "path": "pipelines/sources/ldg/src_leads",
+         "kafka_topic": null,
          "complexity": {
             "number_of_regular_joins": 0,
             "number_of_left_joins": 0,

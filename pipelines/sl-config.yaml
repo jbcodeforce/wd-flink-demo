@@ -1,0 +1,22 @@
+kafka:
+  bootstrap.servers: pkc-rgm37.us-west-2.aws.confluent.cloud:9092
+  cluster_type: dev
+  cluster_id: lkc-7v233w
+confluent_cloud:
+  environment_id: env-yk3jm6
+  region: us-west-2
+  provider: aws
+flink:
+  compute_pool_id: lfcp-11p88z
+  catalog_name: j9r-env
+  database_name: j9r-kafka
+  max_cfu: 17
+app:
+  logging: INFO
+  accepted_common_products: ['common', 'seeds']
+  post_fix_unit_test: _jb
+  sql_content_modifier: shift_left.core.utils.table_worker.ReplaceEnvInSqlContent
+  translator_to_flink_sql_agent: shift_left.core.utils.spark_sql_code_agent.SparkToFlinkSqlAgent
+  dml_naming_convention_modifier: shift_left.core.utils.naming_convention.DmlNameModifier
+  compute_pool_naming_convention_modifier: shift_left.core.utils.naming_convention.ComputePoolNameModifier
+

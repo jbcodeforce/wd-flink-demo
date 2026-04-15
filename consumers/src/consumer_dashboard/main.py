@@ -48,7 +48,7 @@ async def lifespan(app: FastAPI):
 
 def create_app() -> FastAPI:
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s %(message)s")
-    return FastAPI(title="fct_nb_act_per_pgm consumer dashboard", lifespan=lifespan)
+    return FastAPI(title="Analytics dashboard", lifespan=lifespan)
 
 
 app = create_app()

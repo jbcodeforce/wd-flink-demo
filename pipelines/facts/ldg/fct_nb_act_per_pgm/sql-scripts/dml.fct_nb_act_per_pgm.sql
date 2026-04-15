@@ -1,5 +1,4 @@
 -- Daily tumbling windows (event time on activity_ts): distinct activities per program per day.
-set 'sql.tables.scan.idle-timeout' = '1s';
 INSERT INTO fct_nb_act_per_pgm
 SELECT
   window_start,

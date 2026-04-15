@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS dim_activities (
   `lead_last_name` VARCHAR(2147483647),
   `lead_score` INT,
   `lead_status` VARCHAR(2147483647),
+  `program_id` INT,
   `program_name` VARCHAR(2147483647),
   `program_channel` VARCHAR(2147483647),
   `program_status` VARCHAR(2147483647),

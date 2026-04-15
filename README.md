@@ -30,6 +30,9 @@ The demonstration addresses the following standard patterns of data processing:
     * [x] Leads is a CDC Debezium envelop.
     * [x] Marketing Program is a schemaless with payload-json field,
     * [x] raw_activities record is a table with typed columns. For each table few insert statements are done to get useful data.
+
+    ![](./docs/domain-model.drawio.png)
+
 * [x] src_* tables created as bronze layer to dedup, filter and transform raw data.
 * [x] Develop dimension about activities with leads and marketing program information
 * [x] Fact to compute the number of activities per program to see the most actives program
@@ -47,7 +50,7 @@ The demonstration addresses the following standard patterns of data processing:
 | dim_activities | completed | run |
 | fct_nb_act_per_pgm | | |
 
-![](./docs/flink_statements.png)
+![](./docs/flink-statements.png)
 
 *The current structure of flink statements can be adapted, as when there is only one consumer of a flink statement, it is recommended to build it as CTE*.
 
@@ -64,11 +67,27 @@ Review following items in the Confluent Cloud Concepts:
   ![](./docs/cc-env.png)
 
 1. Flink Workspace, Catalog(Environment) and Database (Kafka Cluster)
-  ![]()
+  ![](./docs/cc-workspace.png)
+
 1. Flink Statements, filtering based on status
-  ![]()
-  
+  ![](./docs/flink-statements-view.png)
+
 1. Review execution plan of a DAG using [EXPLAIN](https://docs.confluent.io/cloud/current/flink/reference/statements/explain.html)
+  ```sh
+  StreamSink [10]
+  +- StreamCalc [9]
+    +- StreamGlobalWindowAggregate [8]
+      +- StreamExchange [7]
+        +- StreamLocalWindowAggregate [6]
+          +- StreamCalc [5]
+            +- StreamChangelogNormalize [4]
+              +- StreamExchange [3]
+                +- StreamCalc [2]
+                  +- StreamTableSourceScan [1]
+  ```
+
+1. We can also look at the query profiler
+  ![](./docs/qp-dim-activities.png)
 
 ### Review the raw_mkt_pgm as schemaless
 
@@ -129,3 +148,15 @@ From this table definition, the source processing handles data extraction, dedup
 * Add more activities with some insert of activity records
 * Deploy the fact dml
 * Consumer from kafka topics
+
+## Deploy
+
+* Using shift_left
+  ```sh
+  source set_sl_env
+  shift_left table build-inventory
+  shift_left pipeline build-all-metadata
+  shift_left pipeline deploy --table-name fct_nb_act_per_pgm --compute-pool-id $SL_FLINK_COMPUTE_POOL_ID
+  ```
+
+* Using dbt
