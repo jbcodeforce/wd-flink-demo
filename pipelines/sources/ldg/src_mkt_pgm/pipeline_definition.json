@@ -1,10 +1,10 @@
 {
-   "table_name": "src_leads",
+   "table_name": "src_mkt_pgm",
    "product_name": "ldg",
-   "type": "unknown-type",
-   "dml_ref": "pipelines/ldg/src_leads/sql-scripts/dml.src_leads.sql",
-   "ddl_ref": "pipelines/ldg/src_leads/sql-scripts/ddl.src_leads.sql",
-   "path": "pipelines/ldg/src_leads",
+   "type": "source",
+   "dml_ref": "pipelines/sources/ldg/src_mkt_pgm/sql-scripts/dml.src_mkt_pgm.sql",
+   "ddl_ref": "pipelines/sources/ldg/src_mkt_pgm/sql-scripts/ddl.src_mkt_pgm.sql",
+   "path": "pipelines/sources/ldg/src_mkt_pgm",
    "complexity": {
       "number_of_regular_joins": 0,
       "number_of_left_joins": 0,
@@ -16,12 +16,12 @@
    },
    "parents": [
       {
-         "table_name": "raw_leads",
-         "product_name": "raw",
-         "type": "unknown-type",
-         "dml_ref": "pipelines/raw/raw_leads/sql-scripts/dml.raw_leads.sql",
-         "ddl_ref": "pipelines/raw/raw_leads/sql-scripts/ddl.raw_leads.sql",
-         "path": "pipelines/raw/raw_leads",
+         "table_name": "raw_mkt_pgm",
+         "product_name": "seeds",
+         "type": "seed",
+         "dml_ref": "pipelines/seeds/raw_mkt_pgm/sql-scripts/dml.raw_mkt_pgm.sql",
+         "ddl_ref": "pipelines/seeds/raw_mkt_pgm/sql-scripts/ddl.raw_mkt_pgm.sql",
+         "path": "pipelines/seeds/raw_mkt_pgm",
          "complexity": {
             "number_of_regular_joins": 0,
             "number_of_left_joins": 0,
@@ -34,12 +34,12 @@
          "parents": [],
          "children": [
             {
-               "table_name": "src_leads",
+               "table_name": "src_mkt_pgm",
                "product_name": "ldg",
-               "type": "unknown-type",
-               "dml_ref": "pipelines/ldg/src_leads/sql-scripts/dml.src_leads.sql",
-               "ddl_ref": "pipelines/ldg/src_leads/sql-scripts/ddl.src_leads.sql",
-               "path": "pipelines/ldg/src_leads",
+               "type": "source",
+               "dml_ref": "pipelines/sources/ldg/src_mkt_pgm/sql-scripts/dml.src_mkt_pgm.sql",
+               "ddl_ref": "pipelines/sources/ldg/src_mkt_pgm/sql-scripts/ddl.src_mkt_pgm.sql",
+               "path": "pipelines/sources/ldg/src_mkt_pgm",
                "complexity": {
                   "number_of_regular_joins": 0,
                   "number_of_left_joins": 0,
@@ -59,10 +59,10 @@
       {
          "table_name": "dim_activities",
          "product_name": "ldg",
-         "type": "unknown-type",
-         "dml_ref": "pipelines/ldg/dim_activities/sql-scripts/dml.dim_activities.sql",
-         "ddl_ref": "pipelines/ldg/dim_activities/sql-scripts/ddl.dim_activities.sql",
-         "path": "pipelines/ldg/dim_activities",
+         "type": "dimension",
+         "dml_ref": "pipelines/dimensions/ldg/dim_activities/sql-scripts/dml.dim_activities.sql",
+         "ddl_ref": "pipelines/dimensions/ldg/dim_activities/sql-scripts/ddl.dim_activities.sql",
+         "path": "pipelines/dimensions/ldg/dim_activities",
          "complexity": {
             "number_of_regular_joins": 0,
             "number_of_left_joins": 2,

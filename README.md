@@ -49,8 +49,9 @@ The demonstration addresses the following standard patterns of data processing:
 
 ![](./docs/flink_statements.png)
 
+*The current structure of flink statements can be adapted, as when there is only one consumer of a flink statement, it is recommended to build it as CTE*.
 
-## Demonstration Script
+## Demonstration
 
 ### Understanding main concepts
 
@@ -59,11 +60,14 @@ The demonstration addresses the following standard patterns of data processing:
 
 Review following items in the Confluent Cloud Concepts:
 
-1. Environment
+1. Confluent Environment
   ![](./docs/cc-env.png)
 
-1. Flink workspace, catalog and database
+1. Flink Workspace, Catalog(Environment) and Database (Kafka Cluster)
+  ![]()
 1. Flink Statements, filtering based on status
+  ![]()
+  
 1. Review execution plan of a DAG using [EXPLAIN](https://docs.confluent.io/cloud/current/flink/reference/statements/explain.html)
 
 ### Review the raw_mkt_pgm as schemaless
