@@ -2,7 +2,7 @@
 
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
-
+from uuid import uuid4
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
@@ -37,4 +37,6 @@ class Settings(BaseSettings):
 
 
 def get_settings() -> Settings:
-    return Settings()
+    s = Settings()
+    s.kafka_group_id = s.kafka_group_id + "-" + uuid4().hex[:5]
+    return s

@@ -3,6 +3,7 @@ INSERT INTO fct_nb_act_per_pgm
 SELECT
   window_start,
   window_end,
+  program_id,
   COALESCE(program_name, 'UNKNOWN') AS program_name,
   COUNT(DISTINCT activity_id) AS nb_activities
 FROM TABLE(
@@ -15,4 +16,5 @@ FROM TABLE(
 GROUP BY
   window_start,
   window_end,
+  program_id,
   COALESCE(program_name, 'UNKNOWN');

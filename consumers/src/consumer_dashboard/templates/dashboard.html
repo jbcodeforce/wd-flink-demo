@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>fct_nb_act_per_pgm dashboard</title>
+  <title>Activities per Marketing Program Dashboard</title>
   <style>
     :root {
       --bg: #0f1419;
@@ -97,8 +97,8 @@
 </head>
 <body>
   <header>
-    <h1>Fact: activities per program</h1>
-    <p>Topic: <code id="topic-label">{{ topic }}</code> &middot; metrics refresh every 2s</p>
+    <h1>Fact: Activities per Marketing Program Dashboard</h1>
+    <p>Topic: <code id="topic-label">{{ topic }}</code> &middot; metrics refresh every 5s</p>
   </header>
   <main>
     <div class="status" id="status"></div>
@@ -140,8 +140,10 @@
     <div class="err" id="err-box"></div>
   </main>
   <script>
+    // Semicircle arc length (r=60) for stroke-dash gauge fill.
     const ARC_LEN = Math.PI * 60;
 
+    // Drive the SVG arc gauge: map 0–100% to a visible dash length along the semicircle.
     function setArc(el, pct) {
       const p = Math.max(0, Math.min(100, pct));
       const vis = (p / 100) * ARC_LEN;
@@ -149,11 +151,13 @@
       el.style.strokeDashoffset = 0;
     }
 
+    // Normalize a value against a cap to 0–100 for gauge display (avoids divide-by-zero).
     function pctOf(value, cap) {
       if (!cap || cap <= 0) return 0;
       return Math.min(100, (value / cap) * 100);
     }
 
+    // Poll /api/metrics and refresh status pills, numbers, arcs, and error banner.
     async function tick() {
       try {
         const r = await fetch("/api/metrics");
@@ -207,7 +211,7 @@
     }
 
     tick();
-    setInterval(tick, 2000);
+    setInterval(tick, 5000); // keep dashboard in sync with server-side metrics store
   </script>
 </body>
 </html>

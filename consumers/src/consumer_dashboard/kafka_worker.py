@@ -17,6 +17,7 @@ logger = logging.getLogger(__name__)
 
 
 def _schema_registry_client(settings: Settings) -> SchemaRegistryClient:
+    """Create the Schema Registry client used by Avro deserializers (URL and optional basic auth)."""
     conf: dict[str, str] = {"url": settings.schema_registry_url.strip()}
     if settings.schema_registry_basic_auth_user_info.strip():
         conf["basic.auth.user.info"] = settings.schema_registry_basic_auth_user_info.strip()
@@ -24,6 +25,12 @@ def _schema_registry_client(settings: Settings) -> SchemaRegistryClient:
 
 
 def consumer_loop(settings: Settings, store: MetricsStore, stop: threading.Event) -> None:
+    """
+    Run the Kafka poll loop: subscribe, deserialize Avro key/value, and update ``store`` until ``stop`` is set.
+    The consumer  deserializes fct_nb_act_per_pgm rows into MetricsStore._rows; each row has window_start, program_name, and nb_activities.
+
+
+    """
     sr = _schema_registry_client(settings)
     key_deserializer = AvroDeserializer(sr)
     value_deserializer = AvroDeserializer(sr)
@@ -40,6 +47,7 @@ def consumer_loop(settings: Settings, store: MetricsStore, stop: threading.Event
         "key.deserializer": key_deserializer,
         "value.deserializer": value_deserializer,
     }
+    logger.info(f"consumer conf: {conf}")
     consumer = DeserializingConsumer(conf)
     consumer.subscribe([settings.kafka_topic])
     store.set_consumer_running(True)
@@ -58,6 +66,7 @@ def consumer_loop(settings: Settings, store: MetricsStore, stop: threading.Event
                 logger.warning("Consumer error: %s", err)
                 continue
             try:
+                logger.info(f"key: {msg.key()}, value: {msg.value()}")
                 store.apply_message(msg.key(), msg.value())
             except Exception as e:
                 store.record_error(str(e))
@@ -78,6 +87,7 @@ def consumer_loop(settings: Settings, store: MetricsStore, stop: threading.Event
 
 
 def start_consumer_thread(settings: Settings, store: MetricsStore, stop: threading.Event) -> threading.Thread:
+    """Start ``consumer_loop`` on a daemon thread so the dashboard process can exit with the main app."""
     t = threading.Thread(
         target=consumer_loop,
         args=(settings, store, stop),

@@ -5,7 +5,7 @@ with activities_leads as (
     sa.lead_id,
     sa.activity_type,
     sa.primary_attribute_value,
-    sa.`timestamp` as `activity_ts`,
+    sa.activity_ts as activity_ts,
     cast(sa.metadata['program_id'] as int) as program_id,
     src_leads.email as lead_email,
     src_leads.first_name as `lead_first_name`,
@@ -26,9 +26,11 @@ SELECT
   al.lead_last_name as `lead_last_name`,
   al.lead_score as `lead_score`,
   al.lead_status as `lead_status`,
+  al.program_id,
   p.name as `program_name`, 
   p.channel as `program_channel`,
   p.status as `program_status`
 FROM activities_leads al
   left JOIN src_mkt_pgm p ON al.program_id = p.program_id
+WHERE p.status <> 'Draft'
 

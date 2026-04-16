@@ -48,7 +48,7 @@ The demonstration addresses the following standard patterns of data processing:
 | raw_activities | completed | inserts |
 | src_activities | completed | run |
 | dim_activities | completed | run |
-| fct_nb_act_per_pgm | | |
+| fct_nb_act_per_pgm |completed | run |
 
 ![](./docs/flink-statements.png)
 
@@ -139,17 +139,71 @@ From this table definition, the source processing handles data extraction, dedup
 
 ### Build dimension
 
-* Left joins and limit on state size
+* Left joins and limit on state size: left table is the activities as it is a high-velocity stream.
+  ```sql
+  INSERT INTO dim_activities
+  with activities_leads as (
+    ...
+    FROM src_activities sa
+    LEFT JOIN src_leads ON sa.lead_id = src_leads.m_id
+  )
+  SELECT
+     ...
+  FROM activities_leads al
+  left JOIN src_mkt_pgm p ON al.program_id = p.program_id
+  WHERE p.status <> 'Draft'
+  ```
 
-* Define primary key for the sink table
+Here is an example of reported values:
+
+![](./docs/activities-data.png)
 
 ### Fact: number of activities per program
 
-* Add more activities with some insert of activity records
-* Deploy the fact dml
-* Consumer from kafka topics
+Most of streaming processing use time window to compute analytics aggregates. Here is a simple example of computing the number of activities per program over 4 hours time windows.
 
-## Deploy
+```sql
+-- Daily tumbling windows (event time on activity_ts): distinct activities per program per day.
+INSERT INTO fct_nb_act_per_pgm
+SELECT
+  window_start,
+  window_end,
+  program_id,
+  COALESCE(program_name, 'UNKNOWN') AS program_name,
+  COUNT(DISTINCT activity_id) AS nb_activities
+FROM TABLE(
+  TUMBLE(
+    TABLE dim_activities,
+    DESCRIPTOR(activity_ts),
+    INTERVAL '4' HOURS
+  )
+)
+GROUP BY
+  window_start,
+  window_end,
+  program_id,
+  COALESCE(program_name, 'UNKNOWN');
+
+```
+
+* Watermark is an important elements for time windows based. We recommend [this video](https://docs.confluent.io/cloud/current/flink/concepts/timely-stream-processing.html) and [this summary](https://jbcodeforce.github.io/flink-studies/concepts/#watermarks).
+
+
+For the fact table, the watermark is roughly max `activity_ts` seen so far, minus 5 seconds. A 4-hour tumbling window (start, end) is considered complete and emits only when the watermark is ≥ end.  The watermark cannot move past time T if every event has activity_ts ≤ T.
+
+
+Below is an example of fact data:
+
+![](./docs/fact-data.png)
+
+### Consumer from kafka topics
+
+The consumer is a FastAPI that exposes a metrics api, and a simple dashboard. The WebApp polls every 5 seconds the metrics api, while the backend starts a Kafka Consumer to get new records from the fact table.
+
+![](./docs/dashboard.png)
+
+
+### Deploy
 
 * Using shift_left
   ```sh
@@ -160,3 +214,10 @@ From this table definition, the source processing handles data extraction, dedup
   ```
 
 * Using dbt
+
+### Undeploy
+
+* Using shift_left
+  ```sh
+  shift_left pipeline undeploy --table-name fct_nb_act_per_pgm --compute-pool-id $SL_FLINK_COMPUTE_POOL_ID
+  ```

@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS fct_nb_act_per_pgm (
   `window_start` TIMESTAMP(3) NOT NULL,
   `window_end` TIMESTAMP(3) NOT NULL,
+  `program_id` INT NOT NULL,
   `program_name` VARCHAR(2147483647) NOT NULL,
   `nb_activities` BIGINT NOT NULL,
   PRIMARY KEY(`window_start`, `program_name`) NOT ENFORCED

@@ -37,6 +37,10 @@ uv run consumer-dashboard
 
 (Starts uvicorn on `0.0.0.0:8080` without `--reload`.)
 
+## The DashBoard
+
+![]()
+
 ## Environment variables
 
 | Variable | Required | Description |

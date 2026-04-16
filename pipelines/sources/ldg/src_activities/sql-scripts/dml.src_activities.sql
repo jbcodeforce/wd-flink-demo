@@ -5,7 +5,7 @@ SELECT
   lead_id,
   activity_type,
   primary_attribute_value,
-  `timestamp`,
+  `timestamp` as `activity_ts`,
   metadata
 FROM
  raw_activities
