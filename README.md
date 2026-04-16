@@ -22,20 +22,24 @@ The demonstration addresses the following standard patterns of data processing:
 * Deduplication, filtering logic to create bronze layer
 * Build dimension for activities enriched with leads information and program information
 * Build a fact for marketing program or activity tracking.
+* Build a dashboard directly connected to Kafka topic.
 
 ## Feature status
 
-* [ ] From the domain classes defined in `model.py` we can develop kafka producer for activities and consumers for fact tables
+
 * [x] Raw tables are created in pipelines/raw for the 3 tables:
     * [x] Leads is a CDC Debezium envelop.
     * [x] Marketing Program is a schemaless with payload-json field,
-    * [x] raw_activities record is a table with typed columns. For each table few insert statements are done to get useful data.
+    * [x] raw_activities record is a table with typed columns. For each table few insert statements are done to get useful data. The domain classes are illustrated in the figure below (not all fields are presented).
 
     ![](./docs/domain-model.drawio.png)
 
 * [x] src_* tables created as bronze layer to dedup, filter and transform raw data.
 * [x] Develop dimension about activities with leads and marketing program information
 * [x] Fact to compute the number of activities per program to see the most actives program
+* [x] Develop a dashboard app that get records from fact table and represent analytics widgets.
+* [x] Create controlled test data to demonstrate happy path for aggregations
+* [ ] From the domain classes defined in `model.py` we can develop kafka producer for activities and consumers for fact tables
 
 ### SQL Status
 
@@ -73,18 +77,18 @@ Review following items in the Confluent Cloud Concepts:
   ![](./docs/flink-statements-view.png)
 
 1. Review execution plan of a DAG using [EXPLAIN](https://docs.confluent.io/cloud/current/flink/reference/statements/explain.html)
-  ```sh
-  StreamSink [10]
-  +- StreamCalc [9]
-    +- StreamGlobalWindowAggregate [8]
-      +- StreamExchange [7]
-        +- StreamLocalWindowAggregate [6]
-          +- StreamCalc [5]
-            +- StreamChangelogNormalize [4]
-              +- StreamExchange [3]
-                +- StreamCalc [2]
-                  +- StreamTableSourceScan [1]
-  ```
+    ```sh
+    StreamSink [10]
+    +- StreamCalc [9]
+      +- StreamGlobalWindowAggregate [8]
+        +- StreamExchange [7]
+          +- StreamLocalWindowAggregate [6]
+            +- StreamCalc [5]
+              +- StreamChangelogNormalize [4]
+                +- StreamExchange [3]
+                  +- StreamCalc [2]
+                    +- StreamTableSourceScan [1]
+    ```
 
 1. We can also look at the query profiler
   ![](./docs/qp-dim-activities.png)
@@ -188,9 +192,9 @@ GROUP BY
 
 * Watermark is an important elements for time windows based. We recommend [this video](https://docs.confluent.io/cloud/current/flink/concepts/timely-stream-processing.html) and [this summary](https://jbcodeforce.github.io/flink-studies/concepts/#watermarks).
 
-
 For the fact table, the watermark is roughly max `activity_ts` seen so far, minus 5 seconds. A 4-hour tumbling window (start, end) is considered complete and emits only when the watermark is ≥ end.  The watermark cannot move past time T if every event has activity_ts ≤ T.
 
+For the test data, see the [dml.raw_activities.sql](https://github.com/jbcodeforce/wd-flink-demo/blob/main/pipelines/seeds/raw_activities/sql-scripts/dml.raw_activities.sql). The dataset is from 2026-03-18 to 2026-03-21 with morning / afternoon / evening activities. In the data there are records after each time window ends, to push the watermark past the window end so Flink can emit aggregate.
 
 Below is an example of fact data:
 
@@ -200,8 +204,15 @@ Below is an example of fact data:
 
 The consumer is a FastAPI that exposes a metrics api, and a simple dashboard. The WebApp polls every 5 seconds the metrics api, while the backend starts a Kafka Consumer to get new records from the fact table.
 
+The component view looks like:
+
+![](./docs/comp-view.drawio.png)
+
+And a runtime dashboard connected to the topic presents the following widgets:
+
 ![](./docs/dashboard.png)
 
+The code is under [consumers folder](https://github.com/jbcodeforce/wd-flink-demo/tree/main/consumers)
 
 ### Deploy
 
@@ -213,11 +224,12 @@ The consumer is a FastAPI that exposes a metrics api, and a simple dashboard. Th
   shift_left pipeline deploy --table-name fct_nb_act_per_pgm --compute-pool-id $SL_FLINK_COMPUTE_POOL_ID
   ```
 
-* Using dbt
+* Using dbt -> TO BE DONE
 
 ### Undeploy
 
 * Using shift_left
   ```sh
-  shift_left pipeline undeploy --table-name fct_nb_act_per_pgm --compute-pool-id $SL_FLINK_COMPUTE_POOL_ID
+  shift_left pipeline undeploy --product-name ldg --compute-pool-id $SL_FLINK_COMPUTE_POOL_ID
+  shift_left pipeline undeploy --product-name seeds --compute-pool-id $SL_FLINK_COMPUTE_POOL_ID
   ```

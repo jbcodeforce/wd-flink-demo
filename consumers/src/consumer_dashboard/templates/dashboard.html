@@ -29,7 +29,7 @@
     }
     header h1 { margin: 0; font-size: 1.15rem; font-weight: 600; }
     header p { margin: 0.35rem 0 0; color: var(--muted); font-size: 0.85rem; }
-    main { padding: 1.5rem; max-width: 960px; margin: 0 auto; }
+    main { padding: 1.5rem; max-width: 1040px; margin: 0 auto; }
     .status {
       display: flex;
       flex-wrap: wrap;
@@ -93,6 +93,13 @@
       display: none;
     }
     .err.show { display: block; }
+    .chart-card { margin-top: 1.25rem; }
+    .chart-card .sub { text-align: left; margin-top: 0.5rem; line-height: 1.45; }
+    .chart-wrap {
+      position: relative;
+      height: 280px;
+      margin-top: 0.5rem;
+    }
   </style>
 </head>
 <body>
@@ -137,8 +144,19 @@
         <div class="sub" id="top-prog">No data yet</div>
       </div>
     </div>
+    <div class="card chart-card">
+      <h2>Activities by program (per month)</h2>
+      <p class="sub">
+        Sums of <code>nb_activities</code> from 4-hour fact windows, grouped by UTC month and program (top 8 + Other).
+        Not the same as distinct activities in a calendar month.
+      </p>
+      <div class="chart-wrap">
+        <canvas id="hist-chart" aria-label="Stacked bar chart of activity counts by month and program"></canvas>
+      </div>
+    </div>
     <div class="err" id="err-box"></div>
   </main>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script>
     // Semicircle arc length (r=60) for stroke-dash gauge fill.
     const ARC_LEN = Math.PI * 60;
@@ -157,7 +175,66 @@
       return Math.min(100, (value / cap) * 100);
     }
 
-    // Poll /api/metrics and refresh status pills, numbers, arcs, and error banner.
+    const HISTOGRAM_COLORS = [
+      "#3d9df0", "#3dd68c", "#f0a030", "#c084fc", "#f472b6",
+      "#22d3ee", "#a3e635", "#fb923c", "#94a3b8", "#e7ecf3",
+    ];
+
+    let histogramChart = null;
+
+    function histogramChartOptions() {
+      return {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: "index", intersect: false },
+        scales: {
+          x: {
+            stacked: true,
+            ticks: { color: "#8b9cb3" },
+            grid: { color: "#2a3545" },
+          },
+          y: {
+            stacked: true,
+            beginAtZero: true,
+            ticks: { color: "#8b9cb3" },
+            grid: { color: "#2a3545" },
+          },
+        },
+        plugins: {
+          legend: {
+            position: "bottom",
+            labels: { color: "#e7ecf3", boxWidth: 12, padding: 10 },
+          },
+        },
+      };
+    }
+
+    function updateHistogramChart(months, series) {
+      const canvas = document.getElementById("hist-chart");
+      if (typeof Chart === "undefined" || !canvas) return;
+
+      const labels = Array.isArray(months) && months.length ? months : [];
+      const raw = Array.isArray(series) ? series : [];
+      const datasets = raw.map((s, i) => ({
+        label: s.program_name,
+        data: Array.isArray(s.values) ? s.values : [],
+        backgroundColor: HISTOGRAM_COLORS[i % HISTOGRAM_COLORS.length],
+      }));
+
+      if (!histogramChart) {
+        histogramChart = new Chart(canvas.getContext("2d"), {
+          type: "bar",
+          data: { labels, datasets },
+          options: histogramChartOptions(),
+        });
+        return;
+      }
+      histogramChart.data.labels = labels;
+      histogramChart.data.datasets = datasets;
+      histogramChart.update();
+    }
+
+    // Poll /api/metrics and refresh status pills, numbers, arcs, error banner, and histogram.
     async function tick() {
       try {
         const r = await fetch("/api/metrics");
@@ -203,6 +280,8 @@
         } else {
           err.classList.remove("show");
         }
+
+        updateHistogramChart(m.histogram_months, m.histogram_series);
       } catch (e) {
         const err = document.getElementById("err-box");
         err.textContent = "Failed to load /api/metrics: " + e;

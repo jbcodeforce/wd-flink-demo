@@ -39,7 +39,7 @@ uv run consumer-dashboard
 
 ## The DashBoard
 
-![]()
+![](../docs/dashboard.png)
 
 ## Environment variables
 
