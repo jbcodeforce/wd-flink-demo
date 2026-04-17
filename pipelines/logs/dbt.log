@@ -1,0 +1,30 @@
+[0m09:30:54.731240 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10829fda0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x109264aa0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1092647a0>]}
+
+
+============================== 09:30:54.749285 | 1d0dbcd5-2c67-450c-a13e-8ce67ae03c12 ==============================
+[0m09:30:54.749285 [info ] [MainThread]: Running with dbt=1.11.8
+[0m09:30:54.749593 [debug] [MainThread]: running dbt with arguments {'indirect_selection': 'eager', 'log_format': 'default', 'use_colors': 'True', 'debug': 'False', 'log_path': 'logs', 'version_check': 'True', 'write_json': 'True', 'invocation_command': 'dbt init mktdemo', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'introspect': 'True', 'warn_error': 'None', 'cache_selected_only': 'False', 'send_anonymous_usage_stats': 'True', 'use_experimental_parser': 'False', 'printer_width': '80', 'no_print': 'None', 'log_cache_events': 'False', 'profiles_dir': '/Users/jerome/.dbt', 'fail_fast': 'False', 'target_path': 'None', 'static_parser': 'True', 'quiet': 'False', 'partial_parse': 'True', 'empty': 'None'}
+[0m09:30:54.781685 [debug] [MainThread]: Starter project path: /Users/jerome/Documents/Code/wd-flink-demo/.venv/lib/python3.12/site-packages/dbt/include/starter_project
+[0m09:30:54.786480 [info ] [MainThread]: 
+Your new dbt project "mktdemo" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m09:30:54.786724 [info ] [MainThread]: Setting up your profile.
+[0m09:33:26.926449 [info ] [MainThread]: Profile mktdemo written to /Users/jerome/.dbt/profiles.yml using target's profile_template.yml and your supplied values. Run 'dbt debug' to validate the connection.
+[0m09:33:26.928998 [debug] [MainThread]: Resource report: {"command_name": "init", "command_success": true, "command_wall_clock_time": 152.2711, "process_in_blocks": "0", "process_kernel_time": 0.125058, "process_mem_max_rss": "133300224", "process_out_blocks": "0", "process_user_time": 0.5794}
+[0m09:33:26.930699 [debug] [MainThread]: Command `dbt init` succeeded at 09:33:26.930461 after 152.27 seconds
+[0m09:33:26.931477 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1087098b0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x109237710>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1085837a0>]}
+[0m09:33:26.932291 [debug] [MainThread]: Flushing usage events
+[0m09:33:27.542220 [debug] [MainThread]: An error was encountered while trying to flush usage events

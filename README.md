@@ -60,6 +60,8 @@ The demonstration addresses the following standard patterns of data processing:
 
 ## Demonstration
 
+This section addresses the most common use cases for Flink SQL implementation in the context of moving processing from batch to streaming.
+
 ### Understanding main concepts
 
 * [See main Flink Concepts sunmmary](https://jbcodeforce.github.io/flink-studies/concepts/)
@@ -73,6 +75,9 @@ Review following items in the Confluent Cloud Concepts:
 1. Flink Workspace, Catalog(Environment) and Database (Kafka Cluster)
   ![](./docs/cc-workspace.png)
 
+1. Flink Compute Pool
+  ![]()
+  
 1. Flink Statements, filtering based on status
   ![](./docs/flink-statements-view.png)
 
@@ -95,7 +100,7 @@ Review following items in the Confluent Cloud Concepts:
 
 ### Review the raw_mkt_pgm as schemaless
 
-The unique field is a json string as payload (See [raw_mkt_pgm](https://github.com/jbcodeforce/wd-flink-demo/blob/main/pipelines/raw/raw_mkt_pgm/sql-scripts/ddl.raw_mkt_pgm.sql)).
+The Marketing programs are ingected to Kafka topic. To represent schemaless processing, the record has a unique field: a json string payload (See [raw_mkt_pgm](https://github.com/jbcodeforce/wd-flink-demo/blob/main/pipelines/raw/raw_mkt_pgm/sql-scripts/ddl.raw_mkt_pgm.sql)).
 
 ```sql
 CREATE TABLE IF NOT EXISTS `raw_mkt_pgm` (
@@ -106,7 +111,7 @@ WITH (
   ...
 ```
 
- The payload is a json object which can be transformed to new columns. See [dml.src_mkt_pgm.sql](https://github.com/jbcodeforce/wd-flink-demo/blob/main/pipelines/ldg/src_mkt_pgm/sql-scripts/dml.src_mkt_pgm.sql)
+ The payload is a json object which can be transformed to a new schema with defined columns. See [dml.src_mkt_pgm.sql](https://github.com/jbcodeforce/wd-flink-demo/blob/main/pipelines/ldg/src_mkt_pgm/sql-scripts/dml.src_mkt_pgm.sql)
 
  ```sql
 select
@@ -120,12 +125,14 @@ select
   ...
  ```
 
- [See JSON built-in functions](https://nightlies.apache.org/flink/flink-docs-stable/docs/dev/table/functions/systemfunctions/#json-functions) and [from Confluent documentation.](https://docs.confluent.io/cloud/current/flink/reference/functions/json-functions.html)
+JSON_VALUE is a Flink built-in function to extract json data from a string. [See JSON built-in functions](https://nightlies.apache.org/flink/flink-docs-stable/docs/dev/table/functions/systemfunctions/#json-functions) and [from Confluent documentation.](https://docs.confluent.io/cloud/current/flink/reference/functions/json-functions.html)
 
 
 ### Review CDC Debezium envelops
 
-The raw_leads is defined as a table/schema created by Debezium. For this demonstration there is no source table in SQL database, but a mock of what the schema looks like. For real CDC Debezium outcome see the demonstration [healthcare-shift-left-demo Kafka Connect](https://github.com/jbcodeforce/healthcare-shift-left-demo/tree/main/connect) or []().
+The Leads are coming to Kafka via Debezium Change Data Capture. 
+
+The raw_leads is defined as a table/schema created by Debezium. For this demonstration there is no source table in SQL database, but a mock of what the schema looks like. For real CDC Debezium outcome see the demonstration [healthcare-shift-left-demo Kafka Connect](https://github.com/jbcodeforce/healthcare-shift-left-demo/tree/main/connect).
 
 
 ```sql
@@ -214,9 +221,14 @@ And a runtime dashboard connected to the topic presents the following widgets:
 
 The code is under [consumers folder](https://github.com/jbcodeforce/wd-flink-demo/tree/main/consumers)
 
+### Lookup joins
+Lookup joins allow enriching a streaming dataset with a dataset residing in an external database, looking up the matching entries by key.
+
+Lookup joins use a CONNECTION to an external database or endpoint, and the KEY_SEARCH_AGG function to lookup data in the external source.
+
 ### Deploy
 
-* Using shift_left
+#### Using shift_left
   ```sh
   source set_sl_env
   shift_left table build-inventory
@@ -224,12 +236,46 @@ The code is under [consumers folder](https://github.com/jbcodeforce/wd-flink-dem
   shift_left pipeline deploy --table-name fct_nb_act_per_pgm --compute-pool-id $SL_FLINK_COMPUTE_POOL_ID
   ```
 
-* Using dbt -> TO BE DONE
+#### Using dbt
+
+* Create a python virtual environment, for example using [uv](https://docs.astral.sh/uv)
+  ```sh
+  uv venv --python 3.12
+  source .venv/bin/activate
+  ```
+
+* Install dbt:
+  ```sh
+  uv pip install dbt-confluent
+  dbt --version
+  which dbt
+  ```
+* Create a project
+  ```sh
+  cd pipelines
+  dbt init mktdemo
+  ```
+
+* Deactivate python enviroment
+  ```sh
+  deactivate
+  ```
 
 ### Undeploy
 
-* Using shift_left
+#### Using shift_left
   ```sh
   shift_left pipeline undeploy --product-name ldg --compute-pool-id $SL_FLINK_COMPUTE_POOL_ID
   shift_left pipeline undeploy --product-name seeds --compute-pool-id $SL_FLINK_COMPUTE_POOL_ID
   ```
+
+
+
+## Resources
+
+* [Confluent Cloud Flink Documentation](https://docs.confluent.io/cloud/current/flink/overview.html)
+* [Dbt](https://docs.confluent.io/cloud/current/flink/operate-and-deploy/deploy-flink-dbt.html)
+* [Apache Kafka® and Apache Flink® Tutorials](https://developer.confluent.io/tutorials/)
+* [Flink best practices website](https://jbcodeforce.github.io/flink-studies)
+* [Flink Workshop](https://github.com/griga23/flink-workshop)
+* [Build AI with Confluent Intelligence in Confluent Cloud](https://docs.confluent.io/cloud/current/ai/overview.html)

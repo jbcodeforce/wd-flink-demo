@@ -3,3 +3,7 @@
 CLAUDE.md
 set_sl_env
 .gitconfig
+**/terraform.tfstate*
+**/terraform.tfvars*
+**/terraform.tfstate.backup*
+**/.venv/
