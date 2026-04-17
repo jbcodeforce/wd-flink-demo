@@ -9,6 +9,7 @@ from pathlib import Path
 
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, JSONResponse
+from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 
 from consumer_dashboard.config import Settings, get_settings
@@ -77,6 +78,10 @@ def index(request: Request) -> HTMLResponse:
         name="dashboard.html",
         context={"topic": settings.kafka_topic},
     )
+
+
+_static_assets = Path(__file__).resolve().parent / "templates" / "assets"
+app.mount("/static", StaticFiles(directory=str(_static_assets)), name="static")
 
 
 def run() -> None:

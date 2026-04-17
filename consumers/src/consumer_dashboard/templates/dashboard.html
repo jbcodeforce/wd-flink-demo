@@ -13,6 +13,8 @@
       --accent: #3d9df0;
       --ok: #3dd68c;
       --warn: #f0a030;
+      /* Dominant blue sampled from templates/assets/monster.gif */
+      --header-blue: #2265fb;
     }
     * { box-sizing: border-box; }
     body {
@@ -22,14 +24,66 @@
       color: var(--text);
       min-height: 100vh;
     }
+    .app-shell {
+      display: flex;
+      min-height: 100vh;
+      align-items: stretch;
+    }
+    .sidebar {
+      width: 300px;
+      flex-shrink: 0;
+      background: var(--panel);
+      border-right: 1px solid #2a3545;
+      padding: 1.25rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+    }
+    .sidebar-mascot {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      display: block;
+      border-radius: 5px;
+    }
+    .sidebar nav { width: 100%; }
+    .sidebar a {
+      display: block;
+      text-align: center;
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      background: #243044;
+      border: 1px solid #2a3545;
+    }
+    .sidebar a:hover {
+      background: #2c3a52;
+      color: #fff;
+    }
+    .main-area {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
     header {
       padding: 1rem 1.5rem;
-      border-bottom: 1px solid #2a3545;
-      background: var(--panel);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+      background: var(--header-blue);
     }
-    header h1 { margin: 0; font-size: 1.15rem; font-weight: 600; }
-    header p { margin: 0.35rem 0 0; color: var(--muted); font-size: 0.85rem; }
-    main { padding: 1.5rem; max-width: 1040px; margin: 0 auto; }
+    header h1 { margin: 0; font-size: 1.15rem; font-weight: 600; color: #f4f8ff; }
+    header p { margin: 0.35rem 0 0; color: rgba(244, 248, 255, 0.88); font-size: 0.85rem; }
+    header code {
+      background: rgba(0, 0, 0, 0.18);
+      padding: 0.12rem 0.35rem;
+      border-radius: 4px;
+      color: #fff;
+    }
+    main { padding: 1.5rem; max-width: 1040px; margin: 0 auto; width: 100%; }
     .status {
       display: flex;
       flex-wrap: wrap;
@@ -103,59 +157,69 @@
   </style>
 </head>
 <body>
-  <header>
-    <h1>Fact: Activities per Marketing Program Dashboard</h1>
-    <p>Topic: <code id="topic-label">{{ topic }}</code> &middot; metrics refresh every 5s</p>
-  </header>
-  <main>
-    <div class="status" id="status"></div>
-    <div class="grid">
-      <div class="card">
-        <h2>Snapshot rows</h2>
-        <div class="gauge-wrap">
-          <svg class="gauge" viewBox="0 0 160 100" aria-hidden="true">
-            <path class="gauge-bg" d="M 20 88 A 60 60 0 0 1 140 88" />
-            <path id="arc-rows" class="gauge-fill" d="M 20 88 A 60 60 0 0 1 140 88" />
-          </svg>
-          <div class="gauge-value" id="val-rows">0</div>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Navigation">
+      <img class="sidebar-mascot" src="/static/monster.gif" width="160" height="32" alt="" />
+      <nav>
+        <a href="/">Dashboard</a>
+      </nav>
+    </aside>
+    <div class="main-area">
+      <header>
+        <h1>Fact: Activities per Marketing Program Dashboard</h1>
+        <p>Topic: <code id="topic-label">{{ topic }}</code> &middot; metrics refresh every 5s</p>
+      </header>
+      <main>
+        <div class="status" id="status"></div>
+        <div class="grid">
+          <div class="card">
+            <h2>Snapshot rows</h2>
+            <div class="gauge-wrap">
+              <svg class="gauge" viewBox="0 0 160 100" aria-hidden="true">
+                <path class="gauge-bg" d="M 20 88 A 60 60 0 0 1 140 88" />
+                <path id="arc-rows" class="gauge-fill" d="M 20 88 A 60 60 0 0 1 140 88" />
+              </svg>
+              <div class="gauge-value" id="val-rows">0</div>
+            </div>
+            <div class="sub">Upserted keys in memory</div>
+          </div>
+          <div class="card">
+            <h2>Distinct programs</h2>
+            <div class="gauge-wrap">
+              <svg class="gauge" viewBox="0 0 160 100" aria-hidden="true">
+                <path class="gauge-bg" d="M 20 88 A 60 60 0 0 1 140 88" />
+                <path id="arc-prog" class="gauge-fill" d="M 20 88 A 60 60 0 0 1 140 88" />
+              </svg>
+              <div class="gauge-value" id="val-prog">0</div>
+            </div>
+            <div class="sub">Unique <code>program_name</code> values</div>
+          </div>
+          <div class="card">
+            <h2>Peak count (window)</h2>
+            <div class="gauge-wrap">
+              <svg class="gauge" viewBox="0 0 160 100" aria-hidden="true">
+                <path class="gauge-bg" d="M 20 88 A 60 60 0 0 1 140 88" />
+                <path id="arc-max" class="gauge-fill" d="M 20 88 A 60 60 0 0 1 140 88" />
+              </svg>
+              <div class="gauge-value" id="val-max">0</div>
+            </div>
+            <div class="sub" id="top-prog">No data yet</div>
+          </div>
         </div>
-        <div class="sub">Upserted keys in memory</div>
-      </div>
-      <div class="card">
-        <h2>Distinct programs</h2>
-        <div class="gauge-wrap">
-          <svg class="gauge" viewBox="0 0 160 100" aria-hidden="true">
-            <path class="gauge-bg" d="M 20 88 A 60 60 0 0 1 140 88" />
-            <path id="arc-prog" class="gauge-fill" d="M 20 88 A 60 60 0 0 1 140 88" />
-          </svg>
-          <div class="gauge-value" id="val-prog">0</div>
+        <div class="card chart-card">
+          <h2>Activities by program (per month)</h2>
+          <p class="sub">
+            Sums of <code>nb_activities</code> from 4-hour fact windows, grouped by UTC month and program (top 8 + Other).
+            Not the same as distinct activities in a calendar month.
+          </p>
+          <div class="chart-wrap">
+            <canvas id="hist-chart" aria-label="Stacked bar chart of activity counts by month and program"></canvas>
+          </div>
         </div>
-        <div class="sub">Unique <code>program_name</code> values</div>
-      </div>
-      <div class="card">
-        <h2>Peak count (window)</h2>
-        <div class="gauge-wrap">
-          <svg class="gauge" viewBox="0 0 160 100" aria-hidden="true">
-            <path class="gauge-bg" d="M 20 88 A 60 60 0 0 1 140 88" />
-            <path id="arc-max" class="gauge-fill" d="M 20 88 A 60 60 0 0 1 140 88" />
-          </svg>
-          <div class="gauge-value" id="val-max">0</div>
-        </div>
-        <div class="sub" id="top-prog">No data yet</div>
-      </div>
+        <div class="err" id="err-box"></div>
+      </main>
     </div>
-    <div class="card chart-card">
-      <h2>Activities by program (per month)</h2>
-      <p class="sub">
-        Sums of <code>nb_activities</code> from 4-hour fact windows, grouped by UTC month and program (top 8 + Other).
-        Not the same as distinct activities in a calendar month.
-      </p>
-      <div class="chart-wrap">
-        <canvas id="hist-chart" aria-label="Stacked bar chart of activity counts by month and program"></canvas>
-      </div>
-    </div>
-    <div class="err" id="err-box"></div>
-  </main>
+  </div>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script>
     // Semicircle arc length (r=60) for stroke-dash gauge fill.

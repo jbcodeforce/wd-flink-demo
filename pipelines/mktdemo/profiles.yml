@@ -1,0 +1,18 @@
+mktdemo:
+  outputs:
+    dev:
+      cloud_provider: "{{ env_var('CLOUD_PROVIDER') }}"
+      cloud_region: "{{ env_var('CLOUD_REGION') }}"
+      compute_pool_id: "{{ env_var('SL_FLINK_COMPUTE_POOL_ID') }}"
+      dbname: "{{ env_var('SL_FLINK_DATABASE_NAME') }}"
+      environment_id: "{{ env_var('SL_FLINK_ENV_ID') }}"
+      execution_mode: streaming_query
+      flink_api_key: "{{ env_var('SL_FLINK_API_KEY') }}"
+      flink_api_secret: "{{ env_var('SL_FLINK_API_SECRET') }}"
+      organization_id: "{{ env_var('CLOUD_ORGANIZATION_ID') }}"
+      statement_label: dbt-confluent
+      statement_name_prefix: j9r
+      threads: 1
+      type: confluent
+  target: dev
+
