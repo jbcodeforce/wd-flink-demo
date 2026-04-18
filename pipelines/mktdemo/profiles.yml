@@ -5,7 +5,7 @@ mktdemo:
       cloud_region: "{{ env_var('CLOUD_REGION') }}"
       compute_pool_id: "{{ env_var('SL_FLINK_COMPUTE_POOL_ID') }}"
       dbname: "{{ env_var('SL_FLINK_DATABASE_NAME') }}"
-      environment_id: "{{ env_var('SL_FLINK_ENV_ID') }}"
+      environment_id: "{{ env_var('ENVIRONMENT_ID') }}"
       execution_mode: streaming_query
       flink_api_key: "{{ env_var('SL_FLINK_API_KEY') }}"
       flink_api_secret: "{{ env_var('SL_FLINK_API_SECRET') }}"

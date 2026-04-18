@@ -10,8 +10,6 @@ CREATE TABLE IF NOT EXISTS raw_leads (
 ) DISTRIBUTED BY HASH(`m_id`) INTO 3 BUCKETS
 WITH (
   'changelog.mode' = 'append',
-  'key.avro-registry.schema-context' = '.flink-dev',
-  'value.avro-registry.schema-context' = '.flink-dev',
   'key.format' = 'avro-registry',
   'value.format' = 'avro-registry',
   'kafka.retention.time' = '0',
