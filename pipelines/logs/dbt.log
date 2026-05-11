@@ -28,3 +28,232 @@ Happy modeling!
 [0m09:33:26.931477 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1087098b0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x109237710>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1085837a0>]}
 [0m09:33:26.932291 [debug] [MainThread]: Flushing usage events
 [0m09:33:27.542220 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m18:32:49.968015 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10b0e2090>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10b164fb0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10b166600>]}
+
+
+============================== 18:32:49.971045 | 1df9bc0c-509c-452e-ae12-76412f41d3e4 ==============================
+[0m18:32:49.971045 [info ] [MainThread]: Running with dbt=1.11.6
+[0m18:32:49.971352 [debug] [MainThread]: running dbt with arguments {'empty': 'None', 'log_cache_events': 'False', 'warn_error': 'None', 'write_json': 'True', 'log_path': '/Users/jerome/Documents/Code/wd-flink-demo/pipelines/logs', 'send_anonymous_usage_stats': 'True', 'introspect': 'True', 'partial_parse': 'True', 'profiles_dir': '/Users/jerome/Documents/Code/wd-flink-demo/pipelines', 'target_path': 'None', 'use_experimental_parser': 'False', 'static_parser': 'True', 'use_colors': 'True', 'indirect_selection': 'eager', 'debug': 'False', 'no_print': 'None', 'printer_width': '80', 'version_check': 'True', 'cache_selected_only': 'False', 'log_format': 'default', 'invocation_command': 'dbt debug', 'fail_fast': 'False', 'quiet': 'False', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])'}
+[0m18:32:49.981158 [info ] [MainThread]: dbt version: 1.11.6
+[0m18:32:49.981379 [info ] [MainThread]: python version: 3.12.11
+[0m18:32:49.981517 [info ] [MainThread]: python path: /Users/jerome/Documents/Code/flink-studies/code/dbt/.venv/bin/python3
+[0m18:32:49.981641 [info ] [MainThread]: os info: macOS-26.4.1-arm64-arm-64bit
+[0m18:32:49.985824 [info ] [MainThread]: Error importing adapter: No module named 'dbt.adapters.confluent'
+[0m18:32:49.986063 [info ] [MainThread]: Using profiles dir at /Users/jerome/Documents/Code/wd-flink-demo/pipelines
+[0m18:32:49.986195 [info ] [MainThread]: Using profiles.yml file at /Users/jerome/Documents/Code/wd-flink-demo/pipelines/profiles.yml
+[0m18:32:49.986318 [info ] [MainThread]: Using dbt_project.yml file at /Users/jerome/Documents/Code/wd-flink-demo/pipelines/dbt_project.yml
+[0m18:32:50.033193 [info ] [MainThread]: Configuration:
+[0m18:32:50.033447 [info ] [MainThread]:   profiles.yml file [[31mERROR invalid[0m]
+[0m18:32:50.033588 [info ] [MainThread]:   dbt_project.yml file [[32mOK found and valid[0m]
+[0m18:32:50.033708 [info ] [MainThread]: Required dependencies:
+[0m18:32:50.033922 [debug] [MainThread]: Executing "git --help"
+[0m18:32:50.043125 [debug] [MainThread]: STDOUT: "b"usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]\n           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--no-lazy-fetch]\n           [--no-optional-locks] [--no-advice] [--bare] [--git-dir=<path>]\n           [--work-tree=<path>] [--namespace=<name>] [--config-env=<name>=<envvar>]\n           <command> [<args>]\n\nThese are common Git commands used in various situations:\n\nstart a working area (see also: git help tutorial)\n   clone      Clone a repository into a new directory\n   init       Create an empty Git repository or reinitialize an existing one\n\nwork on the current change (see also: git help everyday)\n   add        Add file contents to the index\n   mv         Move or rename a file, a directory, or a symlink\n   restore    Restore working tree files\n   rm         Remove files from the working tree and from the index\n\nexamine the history and state (see also: git help revisions)\n   bisect     Use binary search to find the commit that introduced a bug\n   diff       Show changes between commits, commit and working tree, etc\n   grep       Print lines matching a pattern\n   log        Show commit logs\n   show       Show various types of objects\n   status     Show the working tree status\n\ngrow, mark and tweak your common history\n   backfill   Download missing objects in a partial clone\n   branch     List, create, or delete branches\n   commit     Record changes to the repository\n   merge      Join two or more development histories together\n   rebase     Reapply commits on top of another base tip\n   reset      Reset current HEAD to the specified state\n   switch     Switch branches\n   tag        Create, list, delete or verify a tag object signed with GPG\n\ncollaborate (see also: git help workflows)\n   fetch      Download objects and refs from another repository\n   pull       Fetch from and integrate with another repository or a local branch\n   push       Update remote refs along with associated objects\n\n'git help -a' and 'git help -g' list available subcommands and some\nconcept guides. See 'git help <command>' or 'git help <concept>'\nto read about a specific subcommand or concept.\nSee 'git help git' for an overview of the system.\n""
+[0m18:32:50.043583 [debug] [MainThread]: STDERR: "b''"
+[0m18:32:50.043748 [info ] [MainThread]:  - git [[32mOK found[0m]
+
+[0m18:32:50.043900 [info ] [MainThread]: Connection test skipped since no profile was found
+[0m18:32:50.044038 [info ] [MainThread]: [31m1 check failed:[0m
+[0m18:32:50.044162 [info ] [MainThread]: Profile loading failed for the following reason:
+Runtime Error
+  Credentials in profile "mktdemo", target "dev" invalid: Runtime Error
+    Could not find adapter type confluent!
+
+
+[0m18:32:50.044572 [debug] [MainThread]: Resource report: {"command_name": "debug", "command_success": false, "command_wall_clock_time": 0.15355791, "process_in_blocks": "0", "process_kernel_time": 0.121781, "process_mem_max_rss": "112771072", "process_out_blocks": "0", "process_user_time": 0.588394}
+[0m18:32:50.044822 [debug] [MainThread]: Command `dbt debug` failed at 18:32:50.044781 after 0.15 seconds
+[0m18:32:50.045057 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10b60af00>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10bfdb5f0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10bc9f530>]}
+[0m18:32:50.045244 [debug] [MainThread]: Flushing usage events
+[0m18:32:50.414457 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m18:33:04.973698 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x108da0260>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1096bbb30>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1096bb860>]}
+
+
+============================== 18:33:04.975629 | 26a49447-b8e0-4e47-bd9a-4d75fd488440 ==============================
+[0m18:33:04.975629 [info ] [MainThread]: Running with dbt=1.11.6
+[0m18:33:04.975902 [debug] [MainThread]: running dbt with arguments {'invocation_command': 'dbt debug', 'version_check': 'True', 'printer_width': '80', 'use_experimental_parser': 'False', 'log_format': 'default', 'profiles_dir': '/Users/jerome/Documents/Code/wd-flink-demo/pipelines', 'static_parser': 'True', 'quiet': 'False', 'cache_selected_only': 'False', 'log_path': '/Users/jerome/Documents/Code/wd-flink-demo/pipelines/logs', 'introspect': 'True', 'debug': 'False', 'use_colors': 'True', 'send_anonymous_usage_stats': 'True', 'log_cache_events': 'False', 'target_path': 'None', 'empty': 'None', 'fail_fast': 'False', 'warn_error': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'no_print': 'None', 'write_json': 'True', 'indirect_selection': 'eager', 'partial_parse': 'True'}
+[0m18:33:04.980108 [info ] [MainThread]: dbt version: 1.11.6
+[0m18:33:04.980279 [info ] [MainThread]: python version: 3.12.11
+[0m18:33:04.980411 [info ] [MainThread]: python path: /Users/jerome/Documents/Code/flink-studies/code/dbt/.venv/bin/python3
+[0m18:33:04.980530 [info ] [MainThread]: os info: macOS-26.4.1-arm64-arm-64bit
+[0m18:33:04.984234 [info ] [MainThread]: Error importing adapter: No module named 'dbt.adapters.confluent'
+[0m18:33:04.984453 [info ] [MainThread]: Using profiles dir at /Users/jerome/Documents/Code/wd-flink-demo/pipelines
+[0m18:33:04.984584 [info ] [MainThread]: Using profiles.yml file at /Users/jerome/Documents/Code/wd-flink-demo/pipelines/profiles.yml
+[0m18:33:04.984707 [info ] [MainThread]: Using dbt_project.yml file at /Users/jerome/Documents/Code/wd-flink-demo/pipelines/dbt_project.yml
+[0m18:33:05.027943 [info ] [MainThread]: Configuration:
+[0m18:33:05.028205 [info ] [MainThread]:   profiles.yml file [[31mERROR invalid[0m]
+[0m18:33:05.028348 [info ] [MainThread]:   dbt_project.yml file [[32mOK found and valid[0m]
+[0m18:33:05.028469 [info ] [MainThread]: Required dependencies:
+[0m18:33:05.028674 [debug] [MainThread]: Executing "git --help"
+[0m18:33:05.037602 [debug] [MainThread]: STDOUT: "b"usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]\n           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--no-lazy-fetch]\n           [--no-optional-locks] [--no-advice] [--bare] [--git-dir=<path>]\n           [--work-tree=<path>] [--namespace=<name>] [--config-env=<name>=<envvar>]\n           <command> [<args>]\n\nThese are common Git commands used in various situations:\n\nstart a working area (see also: git help tutorial)\n   clone      Clone a repository into a new directory\n   init       Create an empty Git repository or reinitialize an existing one\n\nwork on the current change (see also: git help everyday)\n   add        Add file contents to the index\n   mv         Move or rename a file, a directory, or a symlink\n   restore    Restore working tree files\n   rm         Remove files from the working tree and from the index\n\nexamine the history and state (see also: git help revisions)\n   bisect     Use binary search to find the commit that introduced a bug\n   diff       Show changes between commits, commit and working tree, etc\n   grep       Print lines matching a pattern\n   log        Show commit logs\n   show       Show various types of objects\n   status     Show the working tree status\n\ngrow, mark and tweak your common history\n   backfill   Download missing objects in a partial clone\n   branch     List, create, or delete branches\n   commit     Record changes to the repository\n   merge      Join two or more development histories together\n   rebase     Reapply commits on top of another base tip\n   reset      Reset current HEAD to the specified state\n   switch     Switch branches\n   tag        Create, list, delete or verify a tag object signed with GPG\n\ncollaborate (see also: git help workflows)\n   fetch      Download objects and refs from another repository\n   pull       Fetch from and integrate with another repository or a local branch\n   push       Update remote refs along with associated objects\n\n'git help -a' and 'git help -g' list available subcommands and some\nconcept guides. See 'git help <command>' or 'git help <concept>'\nto read about a specific subcommand or concept.\nSee 'git help git' for an overview of the system.\n""
+[0m18:33:05.037993 [debug] [MainThread]: STDERR: "b''"
+[0m18:33:05.038149 [info ] [MainThread]:  - git [[32mOK found[0m]
+
+[0m18:33:05.038302 [info ] [MainThread]: Connection test skipped since no profile was found
+[0m18:33:05.038435 [info ] [MainThread]: [31m1 check failed:[0m
+[0m18:33:05.038555 [info ] [MainThread]: Profile loading failed for the following reason:
+Runtime Error
+  Credentials in profile "mktdemo", target "dev" invalid: Runtime Error
+    Could not find adapter type confluent!
+
+
+[0m18:33:05.038971 [debug] [MainThread]: Resource report: {"command_name": "debug", "command_success": false, "command_wall_clock_time": 0.10427346, "process_in_blocks": "0", "process_kernel_time": 0.109987, "process_mem_max_rss": "113098752", "process_out_blocks": "0", "process_user_time": 0.5852}
+[0m18:33:05.039205 [debug] [MainThread]: Command `dbt debug` failed at 18:33:05.039165 after 0.10 seconds
+[0m18:33:05.039417 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x109676b10>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1089745f0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x108da0260>]}
+[0m18:33:05.039625 [debug] [MainThread]: Flushing usage events
+[0m18:33:05.473443 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m18:34:35.217976 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x106869c70>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1092f8830>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1092f8530>]}
+
+
+============================== 18:34:35.220459 | 027e1bcd-bc77-4af3-ad5e-2fd1d9038033 ==============================
+[0m18:34:35.220459 [info ] [MainThread]: Running with dbt=1.11.8
+[0m18:34:35.220742 [debug] [MainThread]: running dbt with arguments {'version_check': 'True', 'invocation_command': 'dbt debug', 'introspect': 'True', 'target_path': 'None', 'cache_selected_only': 'False', 'use_colors': 'True', 'log_cache_events': 'False', 'static_parser': 'True', 'log_path': '/Users/jerome/Documents/Code/wd-flink-demo/pipelines/logs', 'profiles_dir': '/Users/jerome/Documents/Code/wd-flink-demo/pipelines', 'send_anonymous_usage_stats': 'True', 'indirect_selection': 'eager', 'debug': 'False', 'fail_fast': 'False', 'write_json': 'True', 'printer_width': '80', 'empty': 'None', 'no_print': 'None', 'partial_parse': 'True', 'log_format': 'default', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'warn_error': 'None', 'use_experimental_parser': 'False', 'quiet': 'False'}
+[0m18:34:35.230694 [info ] [MainThread]: dbt version: 1.11.8
+[0m18:34:35.230907 [info ] [MainThread]: python version: 3.12.11
+[0m18:34:35.231039 [info ] [MainThread]: python path: /Users/jerome/Documents/Code/wd-flink-demo/.venv/bin/python3
+[0m18:34:35.231156 [info ] [MainThread]: os info: macOS-26.4.1-arm64-arm-64bit
+[0m18:34:35.260970 [info ] [MainThread]: Using profiles dir at /Users/jerome/Documents/Code/wd-flink-demo/pipelines
+[0m18:34:35.261211 [info ] [MainThread]: Using profiles.yml file at /Users/jerome/Documents/Code/wd-flink-demo/pipelines/profiles.yml
+[0m18:34:35.261353 [info ] [MainThread]: Using dbt_project.yml file at /Users/jerome/Documents/Code/wd-flink-demo/pipelines/dbt_project.yml
+[0m18:34:35.261477 [info ] [MainThread]: adapter type: confluent
+[0m18:34:35.261592 [info ] [MainThread]: adapter version: 0.2.0
+[0m18:34:35.295212 [info ] [MainThread]: Configuration:
+[0m18:34:35.295478 [info ] [MainThread]:   profiles.yml file [[32mOK found and valid[0m]
+[0m18:34:35.295619 [info ] [MainThread]:   dbt_project.yml file [[32mOK found and valid[0m]
+[0m18:34:35.295740 [info ] [MainThread]: Required dependencies:
+[0m18:34:35.295929 [debug] [MainThread]: Executing "git --help"
+[0m18:34:35.309737 [debug] [MainThread]: STDOUT: "b"usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]\n           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--no-lazy-fetch]\n           [--no-optional-locks] [--no-advice] [--bare] [--git-dir=<path>]\n           [--work-tree=<path>] [--namespace=<name>] [--config-env=<name>=<envvar>]\n           <command> [<args>]\n\nThese are common Git commands used in various situations:\n\nstart a working area (see also: git help tutorial)\n   clone      Clone a repository into a new directory\n   init       Create an empty Git repository or reinitialize an existing one\n\nwork on the current change (see also: git help everyday)\n   add        Add file contents to the index\n   mv         Move or rename a file, a directory, or a symlink\n   restore    Restore working tree files\n   rm         Remove files from the working tree and from the index\n\nexamine the history and state (see also: git help revisions)\n   bisect     Use binary search to find the commit that introduced a bug\n   diff       Show changes between commits, commit and working tree, etc\n   grep       Print lines matching a pattern\n   log        Show commit logs\n   show       Show various types of objects\n   status     Show the working tree status\n\ngrow, mark and tweak your common history\n   backfill   Download missing objects in a partial clone\n   branch     List, create, or delete branches\n   commit     Record changes to the repository\n   merge      Join two or more development histories together\n   rebase     Reapply commits on top of another base tip\n   reset      Reset current HEAD to the specified state\n   switch     Switch branches\n   tag        Create, list, delete or verify a tag object signed with GPG\n\ncollaborate (see also: git help workflows)\n   fetch      Download objects and refs from another repository\n   pull       Fetch from and integrate with another repository or a local branch\n   push       Update remote refs along with associated objects\n\n'git help -a' and 'git help -g' list available subcommands and some\nconcept guides. See 'git help <command>' or 'git help <concept>'\nto read about a specific subcommand or concept.\nSee 'git help git' for an overview of the system.\n""
+[0m18:34:35.310206 [debug] [MainThread]: STDERR: "b''"
+[0m18:34:35.310356 [info ] [MainThread]:  - git [[32mOK found[0m]
+
+[0m18:34:35.310523 [info ] [MainThread]: Connection:
+[0m18:34:35.310673 [info ] [MainThread]:   organization_id: 49cee212-6346-438a-a1fa-d1b1cbd90d44
+[0m18:34:35.310796 [info ] [MainThread]:   database: env-yk3jm6
+[0m18:34:35.310911 [info ] [MainThread]:   schema: j9r-kafka
+[0m18:34:35.311027 [info ] [MainThread]:   cloud_provider: aws
+[0m18:34:35.311137 [info ] [MainThread]:   cloud_region: us-west-2
+[0m18:34:35.311417 [info ] [MainThread]: Registered adapter: confluent=0.2.0
+[0m18:34:35.356564 [debug] [MainThread]: Acquiring new confluent connection 'debug'
+[0m18:34:35.394452 [debug] [MainThread]: Using confluent connection "debug"
+[0m18:34:35.394666 [debug] [MainThread]: On debug: select 1 as id
+[0m18:34:35.394808 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m18:34:52.475682 [debug] [MainThread]: SQL status: Phase.RUNNING in 17.081 seconds
+[0m18:34:52.477956 [debug] [MainThread]: On debug: Close
+[0m18:34:52.478999 [info ] [MainThread]:   Connection test: [[32mOK connection ok[0m]
+
+[0m18:34:52.479872 [info ] [MainThread]: [32mAll checks passed![0m
+[0m18:34:52.481216 [debug] [MainThread]: Resource report: {"command_name": "debug", "command_success": true, "command_wall_clock_time": 17.300716, "process_in_blocks": "0", "process_kernel_time": 0.200023, "process_mem_max_rss": "127270912", "process_out_blocks": "0", "process_user_time": 0.672581}
+[0m18:34:52.482169 [debug] [MainThread]: Command `dbt debug` succeeded at 18:34:52.482013 after 17.30 seconds
+[0m18:34:52.482798 [debug] [MainThread]: Connection 'debug' was properly closed.
+[0m18:34:52.483440 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1099cbe30>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x108614ef0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10954bc20>]}
+[0m18:34:52.484136 [debug] [MainThread]: Flushing usage events
+[0m18:34:52.930071 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m18:35:54.355278 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x108f68680>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1095cd790>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x109bede20>]}
+
+
+============================== 18:35:54.357227 | b0d38c9e-5f0a-418e-9742-3f03bfa49e03 ==============================
+[0m18:35:54.357227 [info ] [MainThread]: Running with dbt=1.11.8
+[0m18:35:54.357503 [debug] [MainThread]: running dbt with arguments {'warn_error': 'None', 'use_experimental_parser': 'False', 'log_cache_events': 'False', 'cache_selected_only': 'False', 'indirect_selection': 'eager', 'partial_parse': 'True', 'send_anonymous_usage_stats': 'True', 'write_json': 'True', 'empty': 'False', 'debug': 'False', 'version_check': 'True', 'log_path': '/Users/jerome/Documents/Code/wd-flink-demo/pipelines/logs', 'target_path': 'None', 'introspect': 'True', 'invocation_command': 'dbt compile', 'log_format': 'default', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'fail_fast': 'False', 'static_parser': 'True', 'profiles_dir': '/Users/jerome/Documents/Code/wd-flink-demo/pipelines', 'no_print': 'None', 'quiet': 'False', 'use_colors': 'True', 'printer_width': '80'}
+[0m18:35:54.417678 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': 'b0d38c9e-5f0a-418e-9742-3f03bfa49e03', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x109e07fb0>]}
+[0m18:35:54.450420 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': 'b0d38c9e-5f0a-418e-9742-3f03bfa49e03', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1080bbb30>]}
+[0m18:35:54.450805 [info ] [MainThread]: Registered adapter: confluent=0.2.0
+[0m18:35:54.499891 [debug] [MainThread]: checksum: 7d524ac048c2100769df89d592e662e060a73ca564e31bd9c2a37efdfe8d8ab6, vars: {}, profile: , target: , version: 1.11.8
+[0m18:35:54.500290 [info ] [MainThread]: Unable to do partial parsing because saved manifest not found. Starting full parse.
+[0m18:35:54.500468 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': 'b0d38c9e-5f0a-418e-9742-3f03bfa49e03', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x109eef3b0>]}
+[0m18:35:54.878491 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': 'b0d38c9e-5f0a-418e-9742-3f03bfa49e03', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x109fdda90>]}
+[0m18:35:54.903707 [debug] [MainThread]: Wrote artifact WritableManifest to /Users/jerome/Documents/Code/wd-flink-demo/pipelines/target/manifest.json
+[0m18:35:54.905028 [debug] [MainThread]: Wrote artifact SemanticManifest to /Users/jerome/Documents/Code/wd-flink-demo/pipelines/target/semantic_manifest.json
+[0m18:35:54.910446 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': 'b0d38c9e-5f0a-418e-9742-3f03bfa49e03', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10a33dd00>]}
+[0m18:35:54.910710 [info ] [MainThread]: Found 10 models, 451 macros
+[0m18:35:54.910868 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': 'b0d38c9e-5f0a-418e-9742-3f03bfa49e03', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10a39c500>]}
+[0m18:35:54.911838 [info ] [MainThread]: 
+[0m18:35:54.912015 [info ] [MainThread]: Concurrency: 1 threads (target='dev')
+[0m18:35:54.912138 [info ] [MainThread]: 
+[0m18:35:54.912352 [debug] [MainThread]: Acquiring new confluent connection 'master'
+[0m18:35:54.914421 [debug] [ThreadPool]: Acquiring new confluent connection 'list_env-yk3jm6_j9r-kafka'
+[0m18:35:54.943937 [debug] [ThreadPool]: Using confluent connection "list_env-yk3jm6_j9r-kafka"
+[0m18:35:54.944169 [debug] [ThreadPool]: On list_env-yk3jm6_j9r-kafka: /* {"app": "dbt", "dbt_version": "1.11.8", "profile_name": "mktdemo", "target_name": "dev", "connection_name": "list_env-yk3jm6_j9r-kafka"} */
+SELECT
+      TABLE_CATALOG_ID as database,
+      TABLE_NAME as name,
+      TABLE_SCHEMA as schema,
+      TABLE_TYPE as type
+    FROM
+      INFORMATION_SCHEMA.`TABLES`
+    WHERE
+      TABLE_CATALOG_ID = 'env-yk3jm6'
+      AND TABLE_SCHEMA = 'j9r-kafka'
+  
+[0m18:35:54.944335 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m18:35:56.026078 [debug] [ThreadPool]: SQL status: Phase.COMPLETED in 1.082 seconds
+[0m18:35:56.149670 [debug] [ThreadPool]: On list_env-yk3jm6_j9r-kafka: Close
+[0m18:35:56.153610 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': 'b0d38c9e-5f0a-418e-9742-3f03bfa49e03', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1075d9a60>]}
+[0m18:35:56.157404 [debug] [Thread-1 (]: Began running node model.mktdemo.ddl.dim_activities
+[0m18:35:56.158848 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly list_env-yk3jm6_j9r-kafka, now model.mktdemo.ddl.dim_activities)
+[0m18:35:56.159459 [debug] [Thread-1 (]: Began compiling node model.mktdemo.ddl.dim_activities
+[0m18:35:56.165219 [debug] [Thread-1 (]: Writing injected SQL for node "model.mktdemo.ddl.dim_activities"
+[0m18:35:56.166407 [debug] [Thread-1 (]: Began executing node model.mktdemo.ddl.dim_activities
+[0m18:35:56.166709 [debug] [Thread-1 (]: Finished running node model.mktdemo.ddl.dim_activities
+[0m18:35:56.166872 [debug] [Thread-1 (]: Began running node model.mktdemo.ddl.fct_nb_act_per_pgm
+[0m18:35:56.167084 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.mktdemo.ddl.dim_activities, now model.mktdemo.ddl.fct_nb_act_per_pgm)
+[0m18:35:56.167276 [debug] [Thread-1 (]: Began compiling node model.mktdemo.ddl.fct_nb_act_per_pgm
+[0m18:35:56.167972 [debug] [Thread-1 (]: Writing injected SQL for node "model.mktdemo.ddl.fct_nb_act_per_pgm"
+[0m18:35:56.168508 [debug] [Thread-1 (]: Began executing node model.mktdemo.ddl.fct_nb_act_per_pgm
+[0m18:35:56.168838 [debug] [Thread-1 (]: Finished running node model.mktdemo.ddl.fct_nb_act_per_pgm
+[0m18:35:56.169000 [debug] [Thread-1 (]: Began running node model.mktdemo.ddl.src_activities
+[0m18:35:56.169167 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.mktdemo.ddl.fct_nb_act_per_pgm, now model.mktdemo.ddl.src_activities)
+[0m18:35:56.169305 [debug] [Thread-1 (]: Began compiling node model.mktdemo.ddl.src_activities
+[0m18:35:56.169999 [debug] [Thread-1 (]: Writing injected SQL for node "model.mktdemo.ddl.src_activities"
+[0m18:35:56.170507 [debug] [Thread-1 (]: Began executing node model.mktdemo.ddl.src_activities
+[0m18:35:56.170749 [debug] [Thread-1 (]: Finished running node model.mktdemo.ddl.src_activities
+[0m18:35:56.170894 [debug] [Thread-1 (]: Began running node model.mktdemo.ddl.src_leads
+[0m18:35:56.171049 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.mktdemo.ddl.src_activities, now model.mktdemo.ddl.src_leads)
+[0m18:35:56.171190 [debug] [Thread-1 (]: Began compiling node model.mktdemo.ddl.src_leads
+[0m18:35:56.171826 [debug] [Thread-1 (]: Writing injected SQL for node "model.mktdemo.ddl.src_leads"
+[0m18:35:56.172233 [debug] [Thread-1 (]: Began executing node model.mktdemo.ddl.src_leads
+[0m18:35:56.172462 [debug] [Thread-1 (]: Finished running node model.mktdemo.ddl.src_leads
+[0m18:35:56.172610 [debug] [Thread-1 (]: Began running node model.mktdemo.ddl.src_mkt_pgm
+[0m18:35:56.172761 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.mktdemo.ddl.src_leads, now model.mktdemo.ddl.src_mkt_pgm)
+[0m18:35:56.172897 [debug] [Thread-1 (]: Began compiling node model.mktdemo.ddl.src_mkt_pgm
+[0m18:35:56.173521 [debug] [Thread-1 (]: Writing injected SQL for node "model.mktdemo.ddl.src_mkt_pgm"
+[0m18:35:56.173893 [debug] [Thread-1 (]: Began executing node model.mktdemo.ddl.src_mkt_pgm
+[0m18:35:56.174113 [debug] [Thread-1 (]: Finished running node model.mktdemo.ddl.src_mkt_pgm
+[0m18:35:56.174256 [debug] [Thread-1 (]: Began running node model.mktdemo.dml.dim_activities
+[0m18:35:56.174396 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.mktdemo.ddl.src_mkt_pgm, now model.mktdemo.dml.dim_activities)
+[0m18:35:56.174537 [debug] [Thread-1 (]: Began compiling node model.mktdemo.dml.dim_activities
+[0m18:35:56.175099 [debug] [Thread-1 (]: Writing injected SQL for node "model.mktdemo.dml.dim_activities"
+[0m18:35:56.175344 [debug] [Thread-1 (]: Began executing node model.mktdemo.dml.dim_activities
+[0m18:35:56.175559 [debug] [Thread-1 (]: Finished running node model.mktdemo.dml.dim_activities
+[0m18:35:56.175699 [debug] [Thread-1 (]: Began running node model.mktdemo.dml.fct_nb_act_per_pgm
+[0m18:35:56.175839 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.mktdemo.dml.dim_activities, now model.mktdemo.dml.fct_nb_act_per_pgm)
+[0m18:35:56.175975 [debug] [Thread-1 (]: Began compiling node model.mktdemo.dml.fct_nb_act_per_pgm
+[0m18:35:56.176565 [debug] [Thread-1 (]: Writing injected SQL for node "model.mktdemo.dml.fct_nb_act_per_pgm"
+[0m18:35:56.176808 [debug] [Thread-1 (]: Began executing node model.mktdemo.dml.fct_nb_act_per_pgm
+[0m18:35:56.177027 [debug] [Thread-1 (]: Finished running node model.mktdemo.dml.fct_nb_act_per_pgm
+[0m18:35:56.177180 [debug] [Thread-1 (]: Began running node model.mktdemo.dml.src_activities
+[0m18:35:56.177312 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.mktdemo.dml.fct_nb_act_per_pgm, now model.mktdemo.dml.src_activities)
+[0m18:35:56.177450 [debug] [Thread-1 (]: Began compiling node model.mktdemo.dml.src_activities
+[0m18:35:56.178029 [debug] [Thread-1 (]: Writing injected SQL for node "model.mktdemo.dml.src_activities"
+[0m18:35:56.178296 [debug] [Thread-1 (]: Began executing node model.mktdemo.dml.src_activities
+[0m18:35:56.178492 [debug] [Thread-1 (]: Finished running node model.mktdemo.dml.src_activities
+[0m18:35:56.178626 [debug] [Thread-1 (]: Began running node model.mktdemo.dml.src_leads
+[0m18:35:56.178758 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.mktdemo.dml.src_activities, now model.mktdemo.dml.src_leads)
+[0m18:35:56.178889 [debug] [Thread-1 (]: Began compiling node model.mktdemo.dml.src_leads
+[0m18:35:56.179497 [debug] [Thread-1 (]: Writing injected SQL for node "model.mktdemo.dml.src_leads"
+[0m18:35:56.179754 [debug] [Thread-1 (]: Began executing node model.mktdemo.dml.src_leads
+[0m18:35:56.179967 [debug] [Thread-1 (]: Finished running node model.mktdemo.dml.src_leads
+[0m18:35:56.180111 [debug] [Thread-1 (]: Began running node model.mktdemo.dml.src_mkt_pgm
+[0m18:35:56.180243 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.mktdemo.dml.src_leads, now model.mktdemo.dml.src_mkt_pgm)
+[0m18:35:56.180373 [debug] [Thread-1 (]: Began compiling node model.mktdemo.dml.src_mkt_pgm
+[0m18:35:56.180934 [debug] [Thread-1 (]: Writing injected SQL for node "model.mktdemo.dml.src_mkt_pgm"
+[0m18:35:56.181160 [debug] [Thread-1 (]: Began executing node model.mktdemo.dml.src_mkt_pgm
+[0m18:35:56.181367 [debug] [Thread-1 (]: Finished running node model.mktdemo.dml.src_mkt_pgm
+[0m18:35:56.181802 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m18:35:56.181976 [debug] [MainThread]: Connection 'model.mktdemo.dml.src_mkt_pgm' was properly closed.
+[0m18:35:56.182581 [debug] [MainThread]: Command end result
+[0m18:35:56.193277 [debug] [MainThread]: Wrote artifact WritableManifest to /Users/jerome/Documents/Code/wd-flink-demo/pipelines/target/manifest.json
+[0m18:35:56.194289 [debug] [MainThread]: Wrote artifact SemanticManifest to /Users/jerome/Documents/Code/wd-flink-demo/pipelines/target/semantic_manifest.json
+[0m18:35:56.197666 [debug] [MainThread]: Wrote artifact RunExecutionResult to /Users/jerome/Documents/Code/wd-flink-demo/pipelines/target/run_results.json
+[0m18:35:56.197949 [debug] [MainThread]: Resource report: {"command_name": "compile", "command_success": true, "command_wall_clock_time": 1.8780624, "process_in_blocks": "0", "process_kernel_time": 0.177663, "process_mem_max_rss": "135725056", "process_out_blocks": "0", "process_user_time": 1.078557}
+[0m18:35:56.198132 [debug] [MainThread]: Command `dbt compile` succeeded at 18:35:56.198102 after 1.88 seconds
+[0m18:35:56.198275 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x109bede20>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1095cd790>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x108ebb5f0>]}
+[0m18:35:56.198409 [debug] [MainThread]: Flushing usage events
+[0m18:35:56.564556 [debug] [MainThread]: An error was encountered while trying to flush usage events
